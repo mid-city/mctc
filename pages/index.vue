@@ -1,3 +1,3 @@
 <template>
-  <h1>Coming Soon!</h1>
+  <main>Coming Soon!</main>
 </template>
