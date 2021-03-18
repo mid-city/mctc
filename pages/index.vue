@@ -1,3 +1,3 @@
 <template>
-  <h1>MCTC Site</h1>
+  <h1>Coming Soon!</h1>
 </template>
