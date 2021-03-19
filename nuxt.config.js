@@ -28,20 +28,19 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
-    // '@nuxt/image',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  // modules: ['nuxt-webfontloader'],
+  modules: [],
 
   // Module Configs
   tailwindcss: {
     jit: true,
   },
+
   fontawesome: {
     component: 'Fa',
     suffix: true,
@@ -50,11 +49,6 @@ export default {
       brands: [],
     },
   },
-  // webfontloader: {
-  //   google: {
-  //     families: ['Open+Sans:400,600&display=swap'],
-  //   },
-  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
