@@ -14,7 +14,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        brand: '#da4c52',
+        brand: '#d42f35',
       },
       zIndex: {
         '-10': '-10',
