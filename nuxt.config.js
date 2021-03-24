@@ -31,6 +31,7 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
+    'nuxt-graphql-request',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -38,16 +39,33 @@ export default {
 
   // Module Configs
   tailwindcss: {
-    jit: true,
+    jit: false,
   },
 
   fontawesome: {
     component: 'Fa',
     suffix: true,
     icons: {
-      solid: ['faBars'],
+      solid: ['faBars', 'faEye', 'faUserCircle'],
       brands: [],
     },
+  },
+
+  graphql: {
+    clients: {
+      default: {
+        endpoint: process.env.CONTENT_BASE_URL,
+        options: {
+          headers: {
+            authorization: 'Bearer 7ncK5IDLugTSHCe4JxLvX9MY5UzGq86ohZQpxu9ajVI',
+          },
+        },
+      },
+    },
+  },
+
+  privateRuntimeConfig: {
+    contentApiSecret: process.env.CONTENT_API_KEY,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -10,11 +10,11 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      // padding: '2rem',
+      padding: '1rem',
     },
     extend: {
       colors: {
-        brand: '#da4c52',
+        brand: '#d42f35',
       },
       zIndex: {
         '-10': '-10',
@@ -24,5 +24,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }
