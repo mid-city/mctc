@@ -2,18 +2,18 @@
   <main class="container">
     <h1 class="text-brand text-3xl my-8">Course Catalog</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <course-tile
-        v-for="course in courses.courseCollection.items"
+      <course-card
+        v-for="course in courses"
         :key="course.sys.id"
         :course="course"
-      ></course-tile>
+      ></course-card>
     </div>
   </main>
 </template>
 <script>
 import { gql } from 'nuxt-graphql-request'
 export default {
-  async asyncData({ $graphql, params }) {
+  async asyncData({ $graphql, $config: { contentApiSecret } }) {
     const query = gql`
       query courseCollectionQuery {
         courseCollection {
@@ -22,6 +22,7 @@ export default {
               id
             }
             title
+            slug
             description
             heroImage {
               url
@@ -36,26 +37,10 @@ export default {
       }
     `
 
-    const courses = await $graphql.default.request(query)
+    // $graphql.default.setHeaders({ authorization: `Bearer ${contentApiSecret}` })
+    const response = await $graphql.default.request(query)
+    const courses = response.courseCollection.items
     return { courses }
-  },
-  data() {
-    return {
-      oldCourses: [
-        {
-          title: 'AC 101',
-          shortDesc: 'Learn the fundamentals of Air Contitioning',
-          instructor: 'Andrew Ballentine',
-          img: 'AC_101.jpeg',
-        },
-        {
-          title: 'Fujitsu Indoor Head Teardown',
-          shortDesc: 'See the innards. Be happy',
-          instructor: 'Andrew Ballentine',
-          img: 'Fujitsu_Indoor_Head_Teardown.jpeg',
-        },
-      ],
-    }
   },
 }
 </script>

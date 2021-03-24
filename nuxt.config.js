@@ -46,7 +46,7 @@ export default {
     component: 'Fa',
     suffix: true,
     icons: {
-      solid: ['faBars', 'faEye'],
+      solid: ['faBars', 'faEye', 'faUserCircle'],
       brands: [],
     },
   },
@@ -54,8 +54,7 @@ export default {
   graphql: {
     clients: {
       default: {
-        endpoint:
-          'https://graphql.contentful.com/content/v1/spaces/a416ggbvfazn/environments/master',
+        endpoint: process.env.CONTENT_BASE_URL,
         options: {
           headers: {
             authorization: 'Bearer 7ncK5IDLugTSHCe4JxLvX9MY5UzGq86ohZQpxu9ajVI',
@@ -63,7 +62,10 @@ export default {
         },
       },
     },
-    options: {},
+  },
+
+  privateRuntimeConfig: {
+    contentApiSecret: process.env.CONTENT_API_KEY,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

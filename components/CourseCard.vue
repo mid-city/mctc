@@ -1,8 +1,8 @@
 <template>
   <a
-    href="#"
+    :href="`/courses/${course.slug}`"
     class="block relative p-8 text-gray-200 bg-gray-100 bg-center bg-cover"
-    :style="`background-image: linear-gradient(to right,rgba(17, 24, 39, 0.85) 20%,rgba(17, 24, 39, .5)), url('${bgImage}');`"
+    :style="`background-image: linear-gradient(to right,rgba(17, 24, 39, 0.85) 20%,rgba(17, 24, 39, .5)), url('${heroImage}');`"
   >
     <h1 class="text-brand text-2xl uppercase">{{ course.title }}</h1>
 
@@ -25,7 +25,7 @@
 </template>
 <script>
 export default {
-  name: 'CourseTile',
+  name: 'CourseCard',
   props: {
     course: {
       type: Object,
@@ -36,7 +36,7 @@ export default {
     instructors() {
       return this.course.instructorsCollection.items
     },
-    bgImage() {
+    heroImage() {
       if (this.course.heroImage) {
         return this.course.heroImage.url
       } else {

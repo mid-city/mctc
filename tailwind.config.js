@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      // padding: '2rem',
+      padding: '1rem',
     },
     extend: {
       colors: {
@@ -24,5 +24,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }
