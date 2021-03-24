@@ -16,10 +16,7 @@
 
     <div class="container">
       <h2>Course Description</h2>
-      <div
-        v-if="course.longDescription.json"
-        class="prose md:prose-lg max-w-none"
-      >
+      <div v-if="course.longDescription" class="prose md:prose-lg max-w-none">
         <rich-text-renderer :document="course.longDescription.json" />
       </div>
     </div>
