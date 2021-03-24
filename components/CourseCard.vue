@@ -1,6 +1,6 @@
 <template>
-  <a
-    :href="`/courses/${course.slug}`"
+  <nuxt-link
+    :to="`/courses/${course.slug}`"
     class="block relative p-8 text-gray-200 bg-gray-100 bg-center bg-cover"
     :style="`background-image: linear-gradient(to right,rgba(17, 24, 39, 0.85) 20%,rgba(17, 24, 39, .5)), url('${heroImage}');`"
   >
@@ -21,7 +21,7 @@
       :icon="['fas', 'eye']"
       class="eyeIcon fa-lg absolute top-4 right-4 text-gray-50"
     ></fa-icon>
-  </a>
+  </nuxt-link>
 </template>
 <script>
 export default {
