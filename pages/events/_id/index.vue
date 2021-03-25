@@ -1,6 +1,6 @@
 <template>
   <main class="container">
-    <h1 class="text-brand text-4xl">{{ event.course.title }}</h1>
+    <h1>{{ event.course.title }}</h1>
     <p>
       {{ startDate }}
       <span v-if="multiDay">&ndash; {{ endDate }}</span>
