@@ -14,7 +14,7 @@
           <nuxt-link to="/instructors">Instructors</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/schedule">Schedule</nuxt-link>
+          <nuxt-link to="/events">Events</nuxt-link>
         </li>
         <li>
           <nuxt-link to="/contact">Contact</nuxt-link>
