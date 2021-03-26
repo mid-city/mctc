@@ -1,6 +1,6 @@
 <template>
   <main class="container">
-    <h1 class="text-brand text-3xl my-8">Course Catalog</h1>
+    <h1>Course Catalog</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <course-card
         v-for="course in courses"
@@ -12,8 +12,15 @@
 </template>
 <script>
 import { gql } from 'nuxt-graphql-request'
+
 export default {
-  async asyncData({ $graphql, $config: { contentApiSecret } }) {
+  data() {
+    return {
+      courses: [],
+    }
+  },
+
+  async fetch() {
     const query = gql`
       query courseCollectionQuery {
         courseCollection {
@@ -37,10 +44,9 @@ export default {
       }
     `
 
-    // $graphql.default.setHeaders({ authorization: `Bearer ${contentApiSecret}` })
-    const response = await $graphql.default.request(query)
-    const courses = response.courseCollection.items
-    return { courses }
+    this.courses = await this.$graphql.default
+      .request(query)
+      .then((res) => res.courseCollection.items)
   },
 }
 </script>
