@@ -35,11 +35,18 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ['@nuxtjs/dayjs'],
 
   // Module Configs
   tailwindcss: {
     jit: false,
+  },
+
+  dayjs: {
+    locales: ['en'],
+    defaultLocale: 'en',
+    plugins: ['utc', 'timezone'],
+    defaultTimeZone: 'America/New_York',
   },
 
   fontawesome: {
@@ -57,17 +64,17 @@ export default {
         endpoint: process.env.CONTENT_BASE_URL,
         options: {
           headers: {
-            authorization: 'Bearer 7ncK5IDLugTSHCe4JxLvX9MY5UzGq86ohZQpxu9ajVI',
+            authorization: `Bearer ${process.env.CONTENT_API_KEY}`,
           },
         },
       },
     },
   },
 
-  privateRuntimeConfig: {
-    contentApiSecret: process.env.CONTENT_API_KEY,
-  },
-
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  publicRuntimeConfig: {
+    mapboxToken: process.env.MAPBOX_PUBLIC_TOKEN,
+  },
 }

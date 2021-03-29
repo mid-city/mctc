@@ -52,7 +52,7 @@ export default {
   async fetch() {
     const query = gql`
       query courseQuery {
-        courseCollection(where: { slug: "${this.params.slug}" }) {
+        courseCollection(where: { slug: "${this.$route.params.slug}" }) {
           items {
             title
             slug
