@@ -43,10 +43,16 @@ export default {
     RichTextRenderer,
   },
 
-  async asyncData({ $graphql, $config: { contentApiSecret }, params }) {
+  data() {
+    return {
+      course: {},
+    }
+  },
+
+  async fetch() {
     const query = gql`
       query courseQuery {
-        courseCollection(where: { slug: "${params.slug}" }) {
+        courseCollection(where: { slug: "${this.$route.params.slug}" }) {
           items {
             title
             slug
@@ -60,10 +66,10 @@ export default {
         }
       }
     `
-    // $graphql.default.setHeaders({ authorization: `Bearer ${contentApiSecret}` })
-    const response = await $graphql.default.request(query)
-    const course = response.courseCollection.items[0]
-    return { course }
+
+    this.course = await this.$graphql.default
+      .request(query)
+      .then((res) => res.courseCollection.items[0])
   },
 
   computed: {
