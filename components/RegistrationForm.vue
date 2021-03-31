@@ -80,6 +80,11 @@
         class begins.
       </p>
     </form>
+    <nuxt-link
+      class="hidden"
+      :to="`/events/registration-success/?event=${eventId}`"
+      >&nbsp;</nuxt-link
+    >
   </div>
 </template>
 <script>
