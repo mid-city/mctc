@@ -2,13 +2,13 @@
   <div class="w-full h-full bg-gray-200 p-4">
     <h2 class="text-brand text-2xl">Register</h2>
     <form
-      :action="`/events/registration-success/?event=${eventId}`"
-      name="event-registration"
+      action="/events/registration-success/"
+      name="event-registration-test"
       method="POST"
       data-netlify="true"
       netlify-honeypot="email"
     >
-      <input type="hidden" name="form-name" value="event-registration" />
+      <input type="hidden" name="form-name" value="event-registration-test" />
       <input type="text" name="email" class="absolute -top-80 -left-80" />
 
       <input type="hidden" name="eventId" :value="eventId" />
@@ -80,11 +80,6 @@
         class begins.
       </p>
     </form>
-    <nuxt-link
-      class="hidden"
-      :to="`/events/registration-success/?event=${eventId}`"
-      >&nbsp;</nuxt-link
-    >
   </div>
 </template>
 <script>
