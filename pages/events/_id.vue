@@ -31,7 +31,12 @@
         </client-only>
       </div>
     </div>
-    <registration-form class="rounded" />
+    <registration-form
+      class="rounded"
+      :event-id="$route.params.id"
+      :std-price="event.course.price"
+      :dealer-price="event.course.dealerPrice"
+    />
   </main>
 </template>
 <script>
