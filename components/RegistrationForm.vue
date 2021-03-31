@@ -2,7 +2,7 @@
   <div class="w-full h-full bg-gray-200 p-4">
     <h2 class="text-brand text-2xl">Register</h2>
     <form
-      action="/events/registration-success/"
+      :action="`/events/${eventId}/registration-success/`"
       name="event-registration"
       method="POST"
       data-netlify="true"
