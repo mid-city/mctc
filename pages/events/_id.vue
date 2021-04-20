@@ -31,11 +31,15 @@
         </client-only>
       </div>
     </div>
+
     <registration-form
       class="rounded"
       :event-id="$route.params.id"
-      :std-price="event.course.price"
+      :price="event.course.price"
       :dealer-price="event.course.dealerPrice"
+      :start-date="startDateTime.toISOString()"
+      :location="event.classroom.city"
+      :course-title="event.course.title"
     />
   </main>
 </template>

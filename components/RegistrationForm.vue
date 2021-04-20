@@ -1,96 +1,136 @@
+/* eslint-disable camelcase */ /* eslint-disable camelcase */ /* eslint-disable
+camelcase */
 <template>
   <div class="w-full h-full bg-gray-200 p-4">
     <h2 class="text-brand text-2xl">Register</h2>
-    <form
-      action="/events/registration-success/"
-      name="event-registration-test"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="email"
-    >
-      <input type="hidden" name="form-name" value="event-registration-test" />
-      <input type="text" name="email" class="absolute -top-80 -left-80" />
 
-      <input type="hidden" name="eventId" :value="eventId" />
-      <div class="form-field">
-        <label for="fullName">Full Name</label>
-        <input
-          id="fullName"
-          v-model="formData.fullName"
-          type="text"
-          name="fullName"
-        />
-      </div>
-
-      <div class="form-field">
-        <label for="email2">Email</label>
-        <input
-          id="email2"
-          v-model="formData.email"
-          type="email"
-          name="email2"
-        />
-      </div>
-
-      <div class="form-field">
-        <label for="phone">Phone</label>
-        <input id="phone" v-model="formData.phone" type="tel" name="phone" />
-      </div>
-
-      <div class="form-field">
-        <label for="company">Company</label>
-        <input
-          id="company"
-          v-model="formData.company"
-          type="text"
-          name="company"
-        />
-      </div>
-
-      <div class="form-field">
-        <label for="billing">Billing Preference</label>
-        <select id="billing" v-model="formData.billing" name="billing">
-          <option value=""></option>
-          <option value="bill-account">Bill my Account</option>
-          <option value="cash-check">Cash or Check</option>
-        </select>
-      </div>
-      <div class="my-4">
-        <label for="commments">Comments</label>
-        <textarea
-          id="comments"
-          name="comments"
-          cols="30"
-          rows="5"
-          class="w-full"
-        ></textarea>
-      </div>
-      <div class="my-4 text-center">
-        <input
-          type="submit"
-          value="Register"
-          class="bg-brand text-gray-50 rounded-full px-4 py-2 text-center"
-        />
-      </div>
-      <p class="text-sm text-gray-700 sm:px-8">
-        By registering, you agree to pay ${{ stdPrice }}
-        {{ dealerPrice ? `(or $${dealerPrice} if you are a DS dealer)` : '' }}
-        via the method you selected. Cash or check payments are due before class
-        begins. Attendees will be required to sign a liability waiver before
-        class begins.
-      </p>
-    </form>
+    <ValidationObserver v-slot="{ invalid, handleSubmit }" mode="eager">
+      <form @submit.prevent="handleSubmit(onSubmit)">
+        <input type="text" name="email" class="absolute -top-80 -left-80" />
+        <div class="form-field">
+          <label for="fullName">Full Name</label>
+          <ValidationProvider v-slot="{ errors }" rules="alpha_spaces">
+            <input
+              id="fullName"
+              v-model="formData.fullName"
+              type="text"
+              name="fullName"
+              minlength="3"
+              required
+            />
+            <span class="form-error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="form-field">
+          <label for="email2">Email</label>
+          <ValidationProvider v-slot="{ errors }">
+            <input
+              id="email2"
+              v-model="formData.email"
+              type="email"
+              name="email2"
+              required
+            />
+            <span class="form-error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="form-field">
+          <label for="phone">Phone</label>
+          <ValidationProvider v-slot="{ errors }">
+            <input
+              id="phone"
+              v-model="formData.phone"
+              type="tel"
+              name="phone"
+              minlength="10"
+              required
+            />
+            <span class="form-error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="form-field">
+          <label for="company">Company</label>
+          <ValidationProvider v-slot="{ errors }">
+            <input
+              id="company"
+              v-model="formData.company"
+              type="text"
+              name="company"
+              minlength="3"
+              required
+            />
+            <span class="form-error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="form-field">
+          <label for="billing">Billing Preference</label>
+          <ValidationProvider v-slot="{ errors }" rules="min:6">
+            <select
+              id="billing"
+              v-model="formData.billingPreference"
+              name="billingPreference"
+              required
+            >
+              <option value=""></option>
+              <option value="bill-account">Bill my Account</option>
+              <option value="cash-check">Cash or Check</option>
+            </select>
+            <span class="form-error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="my-4">
+          <label for="commments">Comments</label>
+          <textarea
+            id="comments"
+            name="comments"
+            cols="30"
+            rows="5"
+            class="w-full"
+          ></textarea>
+        </div>
+        <div class="my-4 text-center">
+          <button
+            type="submit"
+            :disabled="invalid"
+            class="bg-brand text-gray-50 rounded-full px-4 py-2 text-center hover:bg-red-500 focus:bg-red-500"
+          >
+            Register
+          </button>
+        </div>
+        <p class="text-sm text-gray-700 sm:px-8">
+          By registering, you agree to pay ${{ price }}
+          {{ dealerPrice ? `(or $ if you are a DS dealer)` : '' }}
+          via the method you selected. Cash or check payments are due before
+          class begins. Attendees will be required to sign a liability waiver
+          before class begins.
+        </p>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 <script>
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'
+import {
+  required,
+  email,
+  min,
+  alpha_spaces as alphaSpaces,
+} from 'vee-validate/dist/rules'
+
 export default {
   name: 'RegistrationForm',
+
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+  },
+
   props: {
     eventId: {
       type: String,
       required: true,
     },
-    stdPrice: {
+    price: {
       type: Number,
       required: true,
     },
@@ -98,7 +138,20 @@ export default {
       type: Number,
       default: null,
     },
+    startDate: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+    courseTitle: {
+      type: String,
+      required: true,
+    },
   },
+
   data() {
     return {
       formData: {
@@ -106,16 +159,68 @@ export default {
         email: '',
         phone: '',
         company: '',
-        billing: '',
+        billingPreference: '',
         comments: '',
-        eventId: '',
       },
+      processing: false,
     }
+  },
+
+  created() {
+    extend('required', { ...required })
+    extend('email', email)
+    extend('min', min)
+    extend('alpha_spaces', alphaSpaces)
+  },
+
+  methods: {
+    onSubmit() {
+      this.processing = true
+      // http POST to endpoint url.
+      this.$http
+        .$post(
+          '/registrations/write',
+          {
+            eventId: this.eventId,
+            location: this.location,
+            courseTitle: this.courseTitle,
+            price: this.price,
+            dealerPrice: this.dealerPrice,
+            ...this.formData,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res)
+          this.processing = false
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    },
   },
 }
 </script>
+
 <style scoped>
 .form-field {
-  @apply flex justify-between items-center my-4;
+  @apply my-8;
+}
+.form-field input,
+.form-field select {
+  @apply py-2 px-4;
+}
+.form-field label {
+  @apply block my-2;
+}
+button[disabled] {
+  @apply bg-gray-400 cursor-not-allowed;
+}
+.form-error {
+  @apply text-sm text-red-400;
 }
 </style>

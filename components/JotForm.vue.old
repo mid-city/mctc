@@ -1,0 +1,57 @@
+<template>
+  <div>
+    <iframe
+      id="JotFormIFrame-210945229666059"
+      title="MCTC Event Registrations"
+      :src="`https://form.jotform.com/210945229666059${queryString}`"
+      frameborder="0"
+      class="h-full"
+      scrolling="no"
+    >
+    </iframe>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'JotForm',
+  props: {
+    eventId: {
+      type: String,
+      required: true,
+    },
+    eventDate: {
+      type: String,
+      required: true,
+    },
+    courseTitle: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    dealerPrice: {
+      type: Number,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      baseUrl: 'https://form.jotform.com/jsform/210945229666059',
+    }
+  },
+  computed: {
+    queryString() {
+      return encodeURI(
+        `?eventdate=${this.eventDate}&eventid10=${this.eventId}&location=${this.location}&coursetitle=${this.courseTitle}&price=${this.price}&dealerprice=${this.dealerPrice}`
+      )
+    },
+  },
+}
+</script>
