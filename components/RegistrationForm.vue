@@ -186,6 +186,7 @@ export default {
             courseTitle: this.courseTitle,
             price: this.price,
             dealerPrice: this.dealerPrice,
+            registrationTime: this.$dayjs(),
             ...this.formData,
           },
           {
@@ -195,11 +196,8 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           this.processing = false
-        })
-        .catch((err) => {
-          console.error(err)
         })
     },
   },
