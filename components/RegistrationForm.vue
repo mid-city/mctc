@@ -6,7 +6,13 @@ camelcase */
 
     <ValidationObserver v-slot="{ invalid, handleSubmit }" mode="eager">
       <form @submit.prevent="handleSubmit(onSubmit)">
-        <input type="text" name="email" class="absolute -top-80 -left-80" />
+        <input
+          v-model="formData.emailAlt"
+          type="text"
+          name="email"
+          class="absolute -top-80 -left-80"
+        />
+
         <div class="form-field">
           <label for="fullName">Full Name</label>
           <ValidationProvider v-slot="{ errors }" rules="alpha_spaces">
@@ -155,6 +161,7 @@ export default {
   data() {
     return {
       formData: {
+        emailAlt: '',
         fullName: '',
         email: '',
         phone: '',
@@ -186,7 +193,7 @@ export default {
             courseTitle: this.courseTitle,
             price: this.price,
             dealerPrice: this.dealerPrice,
-            registrationTime: this.$dayjs(),
+            registrationTime: this.$dayjs().toISOString(),
             ...this.formData,
           },
           {
