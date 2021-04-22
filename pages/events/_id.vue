@@ -22,20 +22,24 @@
             {{ event.classroom.state }} {{ event.classroom.zip }}
           </p>
         </div>
-        <client-only>
-          <classroom-map
+        <ClientOnly>
+          <ClassroomMap
             :lat="event.classroom.coordinates.lat"
             :lon="event.classroom.coordinates.lon"
             class="my-8 md:my-0 lg:my-8 max-w-2xl h-40 lg:h-80"
           />
-        </client-only>
+        </ClientOnly>
       </div>
     </div>
-    <registration-form
+
+    <RegistrationForm
       class="rounded"
       :event-id="$route.params.id"
-      :std-price="event.course.price"
+      :price="event.course.price"
       :dealer-price="event.course.dealerPrice"
+      :start-date="startDateTime.toISOString()"
+      :location="event.classroom.city"
+      :course-title="event.course.title"
     />
   </main>
 </template>

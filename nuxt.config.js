@@ -35,7 +35,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/dayjs'],
+  modules: ['@nuxtjs/dayjs', '@nuxt/http'],
 
   // Module Configs
   tailwindcss: {
@@ -72,9 +72,14 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: ['vee-validate/dist/rules'],
+  },
 
   publicRuntimeConfig: {
     mapboxToken: process.env.MAPBOX_PUBLIC_TOKEN,
+    http: {
+      browserBaseURL: process.env.REGISTRATION_ENDPOINT,
+    },
   },
 }
