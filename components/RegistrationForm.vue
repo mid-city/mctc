@@ -5,7 +5,7 @@ camelcase */
     <h2 class="text-brand text-2xl">Register</h2>
 
     <ValidationObserver v-slot="{ invalid, handleSubmit }" mode="eager">
-      <form @submit.prevent="handleSubmit(onSubmit)">
+      <form @submit.prevent="handleSubmit(onSubmit)" @reset.prevent="reset">
         <input
           v-model="formData.emailAlt"
           type="text"
@@ -95,12 +95,24 @@ camelcase */
           ></textarea>
         </div>
         <div class="my-4 text-center">
+          <p class="text-sm my-4">
+            <span v-if="invalid">Please complete form before submitting</span>
+            <span v-if="submitError" class="text-red-700">
+              <FaIcon :icon="['fas', 'exclamation-circle']" />
+              Error Submitting Information
+            </span>
+          </p>
           <button
             type="submit"
             :disabled="invalid"
-            class="bg-brand text-gray-50 rounded-full px-4 py-2 text-center hover:bg-red-500 focus:bg-red-500"
+            class="bg-brand text-gray-50 rounded-full px-4 py-2 text-center hover:bg-red-500 focus:bg-red-500 w-40"
           >
-            Register
+            <span v-if="!processing">Register</span>
+            <FaIcon
+              v-if="processing"
+              :icon="['fas', 'spinner']"
+              class="fa-spin"
+            />
           </button>
         </div>
         <p class="text-sm text-gray-700 sm:px-8">
@@ -170,6 +182,7 @@ export default {
         comments: '',
       },
       processing: false,
+      submitError: false,
     }
   },
 
@@ -205,6 +218,11 @@ export default {
         .then((res) => {
           // console.log(res)
           this.processing = false
+        })
+        .catch((err) => {
+          this.processing = false
+          this.submitError = true
+          console.error(err)
         })
     },
   },
