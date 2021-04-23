@@ -53,7 +53,13 @@ export default {
     component: 'Fa',
     suffix: true,
     icons: {
-      solid: ['faBars', 'faEye', 'faUserCircle'],
+      solid: [
+        'faBars',
+        'faEye',
+        'faUserCircle',
+        'faSpinner',
+        'faExclamationCircle',
+      ],
       brands: [],
     },
   },
