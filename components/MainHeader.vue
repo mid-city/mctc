@@ -25,7 +25,7 @@
           <li>
             <button
               class="bg-brand text-gray-50 py-2 px-8 rounded-lg hover:bg-red-500 focus:bg-red-500"
-              @click.prevent="netlifyIdentity.open"
+              @click.prevent="netlifyIdentity.open()"
             >
               Login
             </button>
