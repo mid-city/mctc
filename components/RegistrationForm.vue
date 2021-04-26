@@ -5,7 +5,7 @@ camelcase */
     <h2 class="text-brand text-2xl">Register</h2>
 
     <ValidationObserver v-slot="{ invalid, handleSubmit }" mode="eager">
-      <form @submit.prevent="handleSubmit(onSubmit)" @reset.prevent="reset">
+      <form id="registrationForm" @submit.prevent="handleSubmit(onSubmit)">
         <input
           v-model="formData.emailAlt"
           type="text"
@@ -88,6 +88,7 @@ camelcase */
           <label for="commments">Comments</label>
           <textarea
             id="comments"
+            v-model="formData.comments"
             name="comments"
             cols="30"
             rows="5"
@@ -218,6 +219,7 @@ export default {
         .then((res) => {
           // console.log(res)
           this.processing = false
+          document.getElementById('registrationForm').reset()
         })
         .catch((err) => {
           this.processing = false
