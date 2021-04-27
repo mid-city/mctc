@@ -9,7 +9,7 @@
         /></nuxt-link>
       </div>
       <nav>
-        <ul class="flex justify-between">
+        <ul class="flex justify-between items-center">
           <li>
             <nuxt-link to="/courses">Courses</nuxt-link>
           </li>
@@ -22,8 +22,25 @@
           <li>
             <nuxt-link to="/contact">Contact</nuxt-link>
           </li>
+          <li>
+            <button
+              class="bg-brand text-gray-50 py-2 px-8 rounded-lg hover:bg-red-500 focus:bg-red-500"
+              @click="handleLogin"
+            >
+              Login
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
   </header>
 </template>
+<script>
+export default {
+  methods: {
+    handleLogin() {
+      this.$auth.loginWith('auth0')
+    },
+  },
+}
+</script>

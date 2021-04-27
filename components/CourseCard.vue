@@ -17,10 +17,10 @@
         </p>
       </div>
     </div>
-    <fa-icon
+    <FaIcon
       :icon="['fas', 'eye']"
       class="eyeIcon fa-lg absolute top-4 right-4 text-gray-50"
-    ></fa-icon>
+    ></FaIcon>
   </nuxt-link>
 </template>
 <script>
