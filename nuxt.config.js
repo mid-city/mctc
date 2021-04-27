@@ -35,7 +35,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/dayjs', '@nuxt/http'],
+  modules: ['@nuxtjs/dayjs', '@nuxtjs/axios', '@nuxtjs/auth-next'],
 
   // Module Configs
   tailwindcss: {
@@ -76,6 +76,20 @@ export default {
       },
     },
   },
+
+  auth: {
+    strategies: {
+      auth0: {
+        domain: process.env.AUTH0_DOMAIN,
+        clientId: process.env.AUTH0_CLIENT_ID,
+        logoutRedirectUri: 'https://training.mid-city.com/', // change for prod
+      },
+    },
+  },
+
+  // router: {
+  //   middleware: ['auth'],
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

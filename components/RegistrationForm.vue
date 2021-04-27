@@ -198,7 +198,7 @@ export default {
     onSubmit() {
       this.processing = true
       // http POST to endpoint url.
-      this.$http
+      this.$axios
         .$post(
           '/registrations/write',
           {
