@@ -81,12 +81,13 @@ export default {
     redirect: {
       logout: '/',
       callback: '/admin',
+      home: '/admin',
     },
     strategies: {
       auth0: {
         domain: process.env.AUTH0_DOMAIN,
         clientId: process.env.AUTH0_CLIENT_ID,
-        logoutRedirectUri: 'https://training.mid-city.com/',
+        logoutRedirectUri: process.env.BASE_URL,
       },
     },
   },
@@ -105,5 +106,6 @@ export default {
     http: {
       browserBaseURL: process.env.REGISTRATION_ENDPOINT,
     },
+    baseUrl: process.env.BASE_URL,
   },
 }
