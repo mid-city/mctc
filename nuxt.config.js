@@ -39,7 +39,7 @@ export default {
 
   // Module Configs
   tailwindcss: {
-    jit: false,
+    jit: true,
   },
 
   dayjs: {
@@ -79,8 +79,9 @@ export default {
 
   auth: {
     redirect: {
+      login: '/login',
       logout: '/',
-      callback: '/admin',
+      callback: '/login',
       home: '/admin',
     },
     strategies: {
