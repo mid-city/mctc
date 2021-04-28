@@ -22,25 +22,11 @@
           <li>
             <nuxt-link to="/contact">Contact</nuxt-link>
           </li>
-          <li>
-            <button
-              class="bg-brand text-gray-50 py-2 px-8 rounded-lg hover:bg-red-500 focus:bg-red-500"
-              @click="handleLogin"
-            >
-              Login
-            </button>
+          <li v-if="$auth.loggedIn">
+            <nuxt-link to="/admin">Admin</nuxt-link>
           </li>
         </ul>
       </nav>
     </div>
   </header>
 </template>
-<script>
-export default {
-  methods: {
-    handleLogin() {
-      this.$auth.loginWith('auth0')
-    },
-  },
-}
-</script>
