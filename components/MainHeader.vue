@@ -22,9 +22,9 @@
           <li>
             <nuxt-link to="/contact">Contact</nuxt-link>
           </li>
-          <li v-if="$auth.loggedIn">
+          <!-- <li v-if="$auth.loggedIn">
             <nuxt-link to="/admin">Admin</nuxt-link>
-          </li>
+          </li> -->
         </ul>
       </nav>
     </div>

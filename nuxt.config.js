@@ -35,11 +35,11 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/dayjs', '@nuxtjs/axios', '@nuxtjs/auth-next'],
+  modules: ['@nuxtjs/dayjs', '@nuxtjs/axios'],
 
   // Module Configs
   tailwindcss: {
-    jit: true,
+    jit: false,
   },
 
   dayjs: {
@@ -77,21 +77,21 @@ export default {
     },
   },
 
-  auth: {
-    redirect: {
-      login: '/login',
-      logout: '/',
-      callback: '/login',
-      home: '/admin',
-    },
-    strategies: {
-      auth0: {
-        domain: process.env.AUTH0_DOMAIN,
-        clientId: process.env.AUTH0_CLIENT_ID,
-        logoutRedirectUri: process.env.BASE_URL,
-      },
-    },
-  },
+  // auth: {
+  //   redirect: {
+  //     login: '/',
+  //     logout: '/',
+  //     callback: '/admin',
+  //     home: false,
+  //   },
+  //   strategies: {
+  //     auth0: {
+  //       domain: process.env.AUTH0_DOMAIN,
+  //       clientId: process.env.AUTH0_CLIENT_ID,
+  //       logoutRedirectUri: process.env.BASE_URL,
+  //     },
+  //   },
+  // },
 
   // router: {
   //   middleware: ['auth'],
