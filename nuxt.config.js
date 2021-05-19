@@ -1,8 +1,6 @@
 export default {
-  // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - mctc',
     title: 'mctc',
@@ -17,16 +15,8 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
-
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss',
@@ -34,7 +24,6 @@ export default {
     'nuxt-graphql-request',
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/dayjs', '@nuxtjs/axios'],
 
   // Module Configs
@@ -80,11 +69,10 @@ export default {
   // auth: {
   //   redirect: {
   //     login: '/',
-  //     logout: '/',
   //     callback: '/admin',
-  //     home: false,
   //   },
   //   strategies: {
+  //     local: false,
   //     auth0: {
   //       domain: process.env.AUTH0_DOMAIN,
   //       clientId: process.env.AUTH0_CLIENT_ID,
@@ -97,7 +85,6 @@ export default {
   //   middleware: ['auth'],
   // },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ['vee-validate/dist/rules'],
   },
@@ -109,4 +96,7 @@ export default {
     },
     baseUrl: process.env.BASE_URL,
   },
+  // serverMiddleware: [
+  //   { path: '/admin', handler: '~/server-middleware/render-mode.js' },
+  // ],
 }

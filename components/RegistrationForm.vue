@@ -10,6 +10,7 @@ camelcase */
           v-model="formData.emailAlt"
           type="text"
           name="email"
+          autocomplete="off"
           class="absolute -top-80 -left-80"
         />
 
@@ -22,9 +23,12 @@ camelcase */
               type="text"
               name="fullName"
               minlength="3"
+              autocomplete="name"
               required
             />
-            <span class="form-error">{{ errors[0] }}</span>
+            <span v-if="errors[0]" class="form-error"
+              >Please provide your full name</span
+            >
           </ValidationProvider>
         </div>
         <div class="form-field">
@@ -35,6 +39,7 @@ camelcase */
               v-model="formData.email"
               type="email"
               name="email2"
+              autocomplete="email"
               required
             />
             <span class="form-error">{{ errors[0] }}</span>
@@ -49,6 +54,7 @@ camelcase */
               type="tel"
               name="phone"
               minlength="10"
+              autocomplete="tel-national"
               required
             />
             <span class="form-error">{{ errors[0] }}</span>
@@ -63,6 +69,7 @@ camelcase */
               type="text"
               name="company"
               minlength="3"
+              autocomplete="organization"
               required
             />
             <span class="form-error">{{ errors[0] }}</span>
@@ -83,6 +90,20 @@ camelcase */
             </select>
             <span class="form-error">{{ errors[0] }}</span>
           </ValidationProvider>
+          <div
+            v-if="formData.billingPreference === 'bill-account'"
+            class="form-field"
+          >
+            <label for="cust-po">PO</label>
+            <ValidationProvider>
+              <input
+                id="cust-po"
+                v-model="formData.custPo"
+                type="text"
+                name="custPo"
+              />
+            </ValidationProvider>
+          </div>
         </div>
         <div class="my-4">
           <label for="commments">Comments</label>
