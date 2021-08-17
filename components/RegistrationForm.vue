@@ -224,6 +224,7 @@ export default {
         phone: '',
         company: '',
         billingPreference: '',
+        custPo: '',
         comments: '',
       },
       processing: false,
@@ -239,6 +240,18 @@ export default {
   },
 
   methods: {
+    resetForm() {
+      this.formData = {
+        emailAlt: '',
+        fullName: '',
+        email: '',
+        phone: '',
+        company: '',
+        billingPreference: '',
+        custPo: '',
+        comments: '',
+      }
+    },
     onSubmit() {
       this.processing = true
       // http POST to endpoint url.
@@ -263,7 +276,7 @@ export default {
         .then((res) => {
           // console.log(res)
           this.processing = false
-          document.getElementById('registrationForm').reset()
+          this.resetForm()
         })
         .catch((err) => {
           this.processing = false
