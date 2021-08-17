@@ -22,6 +22,7 @@ export default {
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
     'nuxt-graphql-request',
+    '@braid/vue-formulate/nuxt',
   ],
 
   modules: ['@nuxtjs/dayjs', '@nuxtjs/axios'],
@@ -66,27 +67,12 @@ export default {
     },
   },
 
-  // auth: {
-  //   redirect: {
-  //     login: '/',
-  //     callback: '/admin',
-  //   },
-  //   strategies: {
-  //     local: false,
-  //     auth0: {
-  //       domain: process.env.AUTH0_DOMAIN,
-  //       clientId: process.env.AUTH0_CLIENT_ID,
-  //       logoutRedirectUri: process.env.BASE_URL,
-  //     },
-  //   },
-  // },
-
-  // router: {
-  //   middleware: ['auth'],
-  // },
-
   build: {
     transpile: ['vee-validate/dist/rules'],
+  },
+
+  server: {
+    host: '10.34.1.49',
   },
 
   publicRuntimeConfig: {

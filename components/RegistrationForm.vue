@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */ /* eslint-disable camelcase */ /* eslint-disable
 camelcase */
 <template>
-  <div class="w-full h-full bg-gray-200 p-4">
-    <h2 class="text-brand text-2xl">Register</h2>
+  <div class="w-full h-full bg-gray-200 p-8">
+    <h2 class="text-brand text-2xl text-center">Register</h2>
 
     <ValidationObserver v-slot="{ invalid, handleSubmit }" mode="eager">
       <form id="registrationForm" @submit.prevent="handleSubmit(onSubmit)">
@@ -13,83 +13,96 @@ camelcase */
           autocomplete="off"
           class="absolute -top-80 -left-80"
         />
-
-        <div class="form-field">
-          <label for="fullName">Full Name</label>
-          <ValidationProvider v-slot="{ errors }" rules="alpha_spaces">
-            <input
-              id="fullName"
-              v-model="formData.fullName"
-              type="text"
-              name="fullName"
-              minlength="3"
-              autocomplete="name"
-              required
-            />
-            <span v-if="errors[0]" class="form-error"
-              >Please provide your full name</span
-            >
-          </ValidationProvider>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="fullName">Full Name</label>
+            <ValidationProvider v-slot="{ errors }" rules="alpha_spaces">
+              <input
+                id="fullName"
+                v-model="formData.fullName"
+                type="text"
+                name="fullName"
+                minlength="3"
+                autocomplete="name"
+                required
+              />
+              <span v-if="errors[0]" class="form-error"
+                ><br />Please provide your full name.</span
+              >
+            </ValidationProvider>
+          </div>
+          <div class="form-field">
+            <label for="email2">Email</label>
+            <ValidationProvider v-slot="{ errors }">
+              <input
+                id="email2"
+                v-model="formData.email"
+                type="email"
+                name="email2"
+                autocomplete="email"
+                required
+              />
+              <span v-if="errors[0]" class="form-error"
+                ><br />This doesn't look like a valid email.</span
+              >
+            </ValidationProvider>
+          </div>
         </div>
-        <div class="form-field">
-          <label for="email2">Email</label>
-          <ValidationProvider v-slot="{ errors }">
-            <input
-              id="email2"
-              v-model="formData.email"
-              type="email"
-              name="email2"
-              autocomplete="email"
-              required
-            />
-            <span class="form-error">{{ errors[0] }}</span>
-          </ValidationProvider>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="phone">Phone</label>
+            <ValidationProvider v-slot="{ errors }">
+              <input
+                id="phone"
+                v-model="formData.phone"
+                type="tel"
+                name="phone"
+                minlength="10"
+                autocomplete="tel-national"
+                required
+              />
+              <span v-if="errors[0]" class="form-error"
+                ><br />Please enter a 10-digit phone number.</span
+              >
+            </ValidationProvider>
+          </div>
+          <div class="form-field">
+            <label for="company">Company</label>
+            <ValidationProvider v-slot="{ errors }">
+              <input
+                id="company"
+                v-model="formData.company"
+                type="text"
+                name="company"
+                minlength="3"
+                autocomplete="organization"
+                required
+              />
+              <span v-if="errors[0]" class="form-error"
+                ><br />Please enter your full company name.</span
+              >
+            </ValidationProvider>
+          </div>
         </div>
-        <div class="form-field">
-          <label for="phone">Phone</label>
-          <ValidationProvider v-slot="{ errors }">
-            <input
-              id="phone"
-              v-model="formData.phone"
-              type="tel"
-              name="phone"
-              minlength="10"
-              autocomplete="tel-national"
-              required
-            />
-            <span class="form-error">{{ errors[0] }}</span>
-          </ValidationProvider>
-        </div>
-        <div class="form-field">
-          <label for="company">Company</label>
-          <ValidationProvider v-slot="{ errors }">
-            <input
-              id="company"
-              v-model="formData.company"
-              type="text"
-              name="company"
-              minlength="3"
-              autocomplete="organization"
-              required
-            />
-            <span class="form-error">{{ errors[0] }}</span>
-          </ValidationProvider>
-        </div>
-        <div class="form-field">
-          <label for="billing">Billing Preference</label>
-          <ValidationProvider v-slot="{ errors }" rules="min:6">
-            <select
-              id="billing"
-              v-model="formData.billingPreference"
-              name="billingPreference"
-              required
-            >
-              <option value=""></option>
-              <option value="bill-account">Bill my Account</option>
-              <option value="cash-check">Cash or Check</option>
-            </select>
-            <span class="form-error">{{ errors[0] }}</span>
-          </ValidationProvider>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="billing">Billing Preference</label>
+            <ValidationProvider v-slot="{ errors }" rules="min:6">
+              <select
+                id="billing"
+                v-model="formData.billingPreference"
+                name="billingPreference"
+                required
+              >
+                <option value=""></option>
+                <option value="bill-account">Bill my Account</option>
+                <option value="cash-check">Cash or Check</option>
+              </select>
+              <span v-if="errors[0]" class="form-error"
+                ><br />Please specify your billing preference.</span
+              >
+            </ValidationProvider>
+          </div>
           <div
             v-if="formData.billingPreference === 'bill-account'"
             class="form-field"
@@ -105,7 +118,7 @@ camelcase */
             </ValidationProvider>
           </div>
         </div>
-        <div class="my-4">
+        <div class="my-8">
           <label for="commments">Comments</label>
           <textarea
             id="comments"
@@ -113,7 +126,7 @@ camelcase */
             name="comments"
             cols="30"
             rows="5"
-            class="w-full"
+            class="w-full rounded border border-gray-400 mt-2"
           ></textarea>
         </div>
         <div class="my-4 text-center">
@@ -127,7 +140,17 @@ camelcase */
           <button
             type="submit"
             :disabled="invalid"
-            class="bg-brand text-gray-50 rounded-full px-4 py-2 text-center hover:bg-red-500 focus:bg-red-500 w-40"
+            class="
+              bg-brand
+              text-gray-50
+              rounded-full
+              px-4
+              py-2
+              text-center
+              hover:bg-red-500
+              focus:bg-red-500
+              w-40
+            "
           >
             <span v-if="!processing">Register</span>
             <FaIcon
@@ -253,12 +276,16 @@ export default {
 </script>
 
 <style scoped>
+.form-row {
+  @apply flex flex-wrap justify-between;
+}
 .form-field {
-  @apply my-8;
+  @apply mt-2 h-28 min-w-full md:min-w-0 lg:min-w-full xl:min-w-0;
+  flex-basis: 47%;
 }
 .form-field input,
 .form-field select {
-  @apply py-2 px-4;
+  @apply py-2 px-4 rounded w-full border border-gray-400;
 }
 .form-field label {
   @apply block my-2;

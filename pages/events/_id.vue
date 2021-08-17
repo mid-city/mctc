@@ -31,7 +31,6 @@
         </ClientOnly>
       </div>
     </div>
-
     <RegistrationForm
       class="rounded"
       :event-id="$route.params.id"
