@@ -22,7 +22,6 @@ export default {
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
     'nuxt-graphql-request',
-    '@braid/vue-formulate/nuxt',
   ],
 
   modules: ['@nuxtjs/dayjs', '@nuxtjs/axios'],
