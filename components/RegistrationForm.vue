@@ -251,6 +251,9 @@ export default {
         custPo: '',
         comments: '',
       }
+      this.$nextTick(() => {
+        this.$refs.form.reset()
+      })
     },
     onSubmit() {
       this.processing = true
