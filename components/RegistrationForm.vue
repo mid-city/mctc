@@ -4,7 +4,11 @@ camelcase */
   <div class="w-full h-full bg-gray-200 p-8">
     <h2 class="text-brand text-2xl text-center">Register</h2>
 
-    <ValidationObserver v-slot="{ invalid, handleSubmit }" mode="eager">
+    <ValidationObserver
+      v-slot="{ invalid, handleSubmit }"
+      mode="eager"
+      ref="form"
+    >
       <form id="registrationForm" @submit.prevent="handleSubmit(onSubmit)">
         <div class="hidden">
           <input
