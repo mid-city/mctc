@@ -6,13 +6,15 @@ camelcase */
 
     <ValidationObserver v-slot="{ invalid, handleSubmit }" mode="eager">
       <form id="registrationForm" @submit.prevent="handleSubmit(onSubmit)">
-        <input
-          v-model="formData.emailAlt"
-          type="text"
-          name="email"
-          autocomplete="off"
-          class="absolute -top-80 -left-80"
-        />
+        <div class="hidden">
+          <input
+            v-model="formData.emailAlt"
+            type="text"
+            name="email"
+            autocomplete="off"
+            class="absolute -top-80 -left-80"
+          />
+        </div>
         <div class="form-row">
           <div class="form-field">
             <label for="fullName">Full Name</label>
