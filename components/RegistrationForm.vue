@@ -260,7 +260,7 @@ export default {
       // http POST to endpoint url.
       this.$axios
         .$post(
-          '/registrations/write',
+          '/registrations',
           {
             eventId: this.eventId,
             location: this.location,
