@@ -22,16 +22,18 @@
             {{ event.classroom.state }} {{ event.classroom.zip }}
           </p>
         </div>
-        <ClientOnly>
-          <ClassroomMap
-            :lat="event.classroom.coordinates.lat"
-            :lon="event.classroom.coordinates.lon"
-            class="my-8 md:my-0 lg:my-8 max-w-2xl h-40 lg:h-80"
-          />
-        </ClientOnly>
+        <a @click="showMap = !showMap" class="text-blue underline"
+          ><span>{{ showMap ? 'Hide' : 'Show' }}</span> Map</a
+        >
+        <LazyClassroomMap
+          v-if="showMap"
+          :lat="event.classroom.coordinates.lat"
+          :lon="event.classroom.coordinates.lon"
+          class="my-8 md:my-0 lg:my-8 max-w-2xl h-40 lg:h-80"
+        />
       </div>
     </div>
-    <RegistrationForm
+    <LazyRegistrationForm
       class="rounded"
       :event-id="$route.params.id"
       :price="event.course.price"
@@ -48,6 +50,7 @@ export default {
   data() {
     return {
       event: {},
+      showMap: false,
     }
   },
 

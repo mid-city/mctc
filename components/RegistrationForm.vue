@@ -6,8 +6,8 @@ camelcase */
 
     <ValidationObserver
       v-slot="{ invalid, handleSubmit }"
-      mode="eager"
       ref="form"
+      mode="eager"
     >
       <form id="registrationForm" @submit.prevent="handleSubmit(onSubmit)">
         <div class="hidden">
@@ -132,7 +132,7 @@ camelcase */
             name="comments"
             cols="30"
             rows="5"
-            class="w-full rounded border border-gray-400 mt-2"
+            class="p-4 w-full rounded border border-gray-400 mt-2"
           ></textarea>
         </div>
         <div class="my-4 text-center">
@@ -283,7 +283,6 @@ export default {
           }
         )
         .then((res) => {
-          // console.log(res)
           this.processing = false
           this.resetForm()
         })
