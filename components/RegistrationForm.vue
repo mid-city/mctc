@@ -2,7 +2,7 @@
 camelcase */
 <template>
   <div class="w-full h-full bg-gray-200 p-8">
-    <h2 class="text-brand text-2xl text-center">Register</h2>
+    <slot></slot>
 
     <ValidationObserver
       v-slot="{ invalid, handleSubmit }"

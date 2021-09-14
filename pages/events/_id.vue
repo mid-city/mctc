@@ -2,7 +2,17 @@
   <main class="container lg:grid grid-cols-2 gap-6 pt-8">
     <div>
       <h1 class="mt-0">{{ event.course.title }}</h1>
+
       <div class="mb-8">
+        <p>{{ event.course.description }}</p>
+        <p class="text-right">
+          <NuxtLink
+            :to="`/courses/${event.course.slug}`"
+            class="text-blue-800 underline"
+          >
+            Full Course Description
+          </NuxtLink>
+        </p>
         <p>
           {{ startDate }}
           <span v-if="multiDay">&ndash; {{ endDate }}</span>
@@ -22,18 +32,14 @@
             {{ event.classroom.state }} {{ event.classroom.zip }}
           </p>
         </div>
-        <a @click="showMap = !showMap" class="text-blue underline"
-          ><span>{{ showMap ? 'Hide' : 'Show' }}</span> Map</a
-        >
         <LazyClassroomMap
-          v-if="showMap"
           :lat="event.classroom.coordinates.lat"
           :lon="event.classroom.coordinates.lon"
           class="my-8 md:my-0 lg:my-8 max-w-2xl h-40 lg:h-80"
         />
       </div>
     </div>
-    <LazyRegistrationForm
+    <RegistrationForm
       class="rounded"
       :event-id="$route.params.id"
       :price="event.course.price"
@@ -41,7 +47,17 @@
       :start-date="startDateTime.toISOString()"
       :location="event.classroom.city"
       :course-title="event.course.title"
-    />
+    >
+      <div class="flex flex-wrap justify-between">
+        <h2 class="text-brand text-2xl">Register</h2>
+        <ClientOnly>
+          <AvailableSeatsCounter
+            :event-id="$route.params.id"
+            :max-seats="event.maxAttendees"
+          />
+        </ClientOnly>
+      </div>
+    </RegistrationForm>
   </main>
 </template>
 <script>
@@ -50,7 +66,6 @@ export default {
   data() {
     return {
       event: {},
-      showMap: false,
     }
   },
 
