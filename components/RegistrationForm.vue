@@ -1,13 +1,11 @@
 /* eslint-disable camelcase */ /* eslint-disable camelcase */ /* eslint-disable
 camelcase */
 <template>
-  <div class="w-full h-full bg-gray-200 p-8">
-    <h2 class="text-brand text-2xl text-center">Register</h2>
-
+  <div>
     <ValidationObserver
       v-slot="{ invalid, handleSubmit }"
-      mode="eager"
       ref="form"
+      mode="eager"
     >
       <form id="registrationForm" @submit.prevent="handleSubmit(onSubmit)">
         <div class="hidden">
@@ -132,7 +130,7 @@ camelcase */
             name="comments"
             cols="30"
             rows="5"
-            class="w-full rounded border border-gray-400 mt-2"
+            class="p-4 w-full rounded border border-gray-400 mt-2"
           ></textarea>
         </div>
         <div class="my-4 text-center">
@@ -219,6 +217,10 @@ export default {
       type: String,
       required: true,
     },
+    maxSeats: {
+      type: Number,
+      required: true,
+    },
   },
 
   data() {
@@ -274,6 +276,7 @@ export default {
             price: this.price,
             dealerPrice: this.dealerPrice,
             registrationTime: this.$dayjs().toISOString(),
+            maxSeats: this.maxSeats,
             ...this.formData,
           },
           {
@@ -283,7 +286,6 @@ export default {
           }
         )
         .then((res) => {
-          // console.log(res)
           this.processing = false
           this.resetForm()
         })

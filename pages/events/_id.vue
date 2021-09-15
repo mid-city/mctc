@@ -2,7 +2,17 @@
   <main class="container lg:grid grid-cols-2 gap-6 pt-8">
     <div>
       <h1 class="mt-0">{{ event.course.title }}</h1>
+
       <div class="mb-8">
+        <p>{{ event.course.description }}</p>
+        <p class="text-right">
+          <NuxtLink
+            :to="`/courses/${event.course.slug}`"
+            class="text-blue-800 underline"
+          >
+            Full Course Description
+          </NuxtLink>
+        </p>
         <p>
           {{ startDate }}
           <span v-if="multiDay">&ndash; {{ endDate }}</span>
@@ -22,39 +32,42 @@
             {{ event.classroom.state }} {{ event.classroom.zip }}
           </p>
         </div>
-        <ClientOnly>
-          <ClassroomMap
-            :lat="event.classroom.coordinates.lat"
-            :lon="event.classroom.coordinates.lon"
-            class="my-8 md:my-0 lg:my-8 max-w-2xl h-40 lg:h-80"
-          />
-        </ClientOnly>
+        <LazyClassroomMap
+          :lat="event.classroom.coordinates.lat"
+          :lon="event.classroom.coordinates.lon"
+          class="my-8 md:my-0 lg:my-8 max-w-2xl h-40 lg:h-80"
+        />
       </div>
     </div>
-    <RegistrationForm
-      class="rounded"
-      :event-id="$route.params.id"
-      :price="event.course.price"
-      :dealer-price="event.course.dealerPrice"
-      :start-date="startDateTime.toISOString()"
-      :location="event.classroom.city"
-      :course-title="event.course.title"
-    />
+    <div class="rounded p-8 bg-gray-100">
+      <h2 class="text-brand text-2xl text-center">{{ formHeading }}</h2>
+      <div
+        v-if="registrationOpen"
+        class="flex flex-wrap justify-between items-center mt-2"
+      >
+        <p>Price: ${{ event.course.price }}</p>
+        <p>{{ statusMessage }}</p>
+      </div>
+      <RegistrationForm
+        v-if="registrationOpen"
+        :event-id="$route.params.id"
+        :price="event.course.price"
+        :dealer-price="event.course.dealerPrice"
+        :start-date="startDateTime.toISOString()"
+        :location="event.classroom.city"
+        :course-title="event.course.title"
+        :max-seats="event.maxAttendees"
+      />
+    </div>
   </main>
 </template>
 <script>
 import { gql } from 'nuxt-graphql-request'
 export default {
-  data() {
-    return {
-      event: {},
-    }
-  },
-
-  async fetch() {
+  async asyncData({ route, $graphql }) {
     const query = gql`
       query eventEntryQuery {
-        event(id: "${this.$route.params.id}") {
+        event(id: "${route.params.id}") {
           startDatetime
           endDatetime
           refreshments
@@ -100,9 +113,20 @@ export default {
       }
     `
 
-    this.event = await this.$graphql.default
-      .request(query)
-      .then((res) => res.event)
+    const event = await $graphql.default.request(query).then((res) => res.event)
+
+    return { event }
+  },
+
+  data() {
+    return {
+      takenSeats: null,
+    }
+  },
+
+  async fetch() {
+    const data = await this.$axios.$get(`/getSeats?id=${this.$route.params.id}`)
+    this.takenSeats = data.count
   },
 
   computed: {
@@ -142,6 +166,33 @@ export default {
         return true
       }
     },
+    hoursUntilStart() {
+      const now = this.$dayjs()
+      return this.startDateTime.diff(now, 'hour')
+    },
+    availableSeats() {
+      if (this.takenSeats !== null)
+        return this.event.maxAttendees - this.takenSeats
+      else return null
+    },
+    registrationOpen() {
+      if (this.hoursUntilStart < 24) return false
+      else if (this.availableSeats === null) return true
+      else if (this.availableSeats < 1) return false
+      else return true
+    },
+    statusMessage() {
+      if (this.registrationOpen && this.availableSeats === null) return ''
+      else if (this.registrationOpen && this.availableSeats > 1)
+        return `${this.availableSeats} Seats Remaining`
+      else return `${this.availableSeats} Seat Remaining`
+    },
+    formHeading() {
+      if (this.registrationOpen) return 'Register'
+      else return 'Registration Closed'
+    },
   },
+
+  fetchOnServer: false,
 }
 </script>
