@@ -39,30 +39,30 @@
         />
       </div>
     </div>
-    <RegistrationForm
-      class="rounded"
-      :event-id="$route.params.id"
-      :price="event.course.price"
-      :dealer-price="event.course.dealerPrice"
-      :start-date="startDateTime.toISOString()"
-      :location="event.classroom.city"
-      :course-title="event.course.title"
-    >
-      <div class="flex flex-wrap justify-between items-center">
-        <h2 class="text-brand text-2xl">Register</h2>
-        <span>{{ statusMessage }}</span>
+    <div class="rounded p-8 bg-gray-100">
+      <h2 class="text-brand text-2xl text-center">{{ formHeading }}</h2>
+      <div
+        v-if="registrationOpen"
+        class="flex flex-wrap justify-between items-center mt-2"
+      >
+        <p>Price: ${{ event.course.price }}</p>
+        <p>{{ statusMessage }}</p>
       </div>
-    </RegistrationForm>
+      <RegistrationForm
+        :event-id="$route.params.id"
+        :price="event.course.price"
+        :dealer-price="event.course.dealerPrice"
+        :start-date="startDateTime.toISOString()"
+        :location="event.classroom.city"
+        :course-title="event.course.title"
+        :max-seats="event.maxAttendees"
+      />
+    </div>
   </main>
 </template>
 <script>
 import { gql } from 'nuxt-graphql-request'
 export default {
-  data() {
-    return {
-      takenSeats: null,
-    }
-  },
   async asyncData({ route, $graphql }) {
     const query = gql`
       query eventEntryQuery {
@@ -115,6 +115,12 @@ export default {
     const event = await $graphql.default.request(query).then((res) => res.event)
 
     return { event }
+  },
+
+  data() {
+    return {
+      takenSeats: null,
+    }
   },
 
   async fetch() {
@@ -176,7 +182,12 @@ export default {
     },
     statusMessage() {
       if (this.registrationOpen && this.availableSeats === null) return ''
-      else if (this.registrationOpen) return `${this.availableSeats} seats open`
+      else if (this.registrationOpen && this.availableSeats > 1)
+        return `${this.availableSeats} Seats Remaining`
+      else return `${this.availableSeats} Seat Remaining`
+    },
+    formHeading() {
+      if (this.registrationOpen) return 'Register'
       else return 'Registration Closed'
     },
   },

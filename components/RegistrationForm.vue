@@ -1,9 +1,7 @@
 /* eslint-disable camelcase */ /* eslint-disable camelcase */ /* eslint-disable
 camelcase */
 <template>
-  <div class="w-full h-full bg-gray-200 p-8">
-    <slot></slot>
-
+  <div>
     <ValidationObserver
       v-slot="{ invalid, handleSubmit }"
       ref="form"
@@ -219,6 +217,10 @@ export default {
       type: String,
       required: true,
     },
+    maxSeats: {
+      type: Number,
+      required: true,
+    },
   },
 
   data() {
@@ -274,6 +276,7 @@ export default {
             price: this.price,
             dealerPrice: this.dealerPrice,
             registrationTime: this.$dayjs().toISOString(),
+            maxSeats: this.maxSeats,
             ...this.formData,
           },
           {
