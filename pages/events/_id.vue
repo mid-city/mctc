@@ -49,6 +49,7 @@
         <p>{{ statusMessage }}</p>
       </div>
       <RegistrationForm
+        v-if="registrationOpen"
         :event-id="$route.params.id"
         :price="event.course.price"
         :dealer-price="event.course.dealerPrice"
