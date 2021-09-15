@@ -48,14 +48,9 @@
       :location="event.classroom.city"
       :course-title="event.course.title"
     >
-      <div class="flex flex-wrap justify-between">
+      <div class="flex flex-wrap justify-between items-center">
         <h2 class="text-brand text-2xl">Register</h2>
-        <ClientOnly>
-          <AvailableSeatsCounter
-            :event-id="$route.params.id"
-            :max-seats="event.maxAttendees"
-          />
-        </ClientOnly>
+        <span>{{ statusMessage }}</span>
       </div>
     </RegistrationForm>
   </main>
@@ -65,14 +60,13 @@ import { gql } from 'nuxt-graphql-request'
 export default {
   data() {
     return {
-      event: {},
+      takenSeats: null,
     }
   },
-
-  async fetch() {
+  async asyncData({ route, $graphql }) {
     const query = gql`
       query eventEntryQuery {
-        event(id: "${this.$route.params.id}") {
+        event(id: "${route.params.id}") {
           startDatetime
           endDatetime
           refreshments
@@ -118,9 +112,14 @@ export default {
       }
     `
 
-    this.event = await this.$graphql.default
-      .request(query)
-      .then((res) => res.event)
+    const event = await $graphql.default.request(query).then((res) => res.event)
+
+    return { event }
+  },
+
+  async fetch() {
+    const data = await this.$axios.$get(`/getSeats?id=${this.$route.params.id}`)
+    this.takenSeats = data.count
   },
 
   computed: {
@@ -160,6 +159,28 @@ export default {
         return true
       }
     },
+    hoursUntilStart() {
+      const now = this.$dayjs()
+      return this.startDateTime.diff(now, 'hour')
+    },
+    availableSeats() {
+      if (this.takenSeats !== null)
+        return this.event.maxAttendees - this.takenSeats
+      else return null
+    },
+    registrationOpen() {
+      if (this.hoursUntilStart < 24) return false
+      else if (this.availableSeats === null) return true
+      else if (this.availableSeats < 1) return false
+      else return true
+    },
+    statusMessage() {
+      if (this.registrationOpen && this.availableSeats === null) return ''
+      else if (this.registrationOpen) return `${this.availableSeats} seats open`
+      else return 'Registration Closed'
+    },
   },
+
+  fetchOnServer: false,
 }
 </script>

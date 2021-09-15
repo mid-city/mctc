@@ -1,6 +1,9 @@
 <template>
   <div>
-    <span>{{ availableSeats }} Seats Open</span>
+    <span v-if="!error && availableSeats >= 1"
+      >{{ availableSeats }} Seats Open</span
+    >
+    <span v-if="!error && availableSeats < 1">Class Full!</span>
   </div>
 </template>
 <script>
@@ -24,7 +27,7 @@ export default {
   },
   async fetch() {
     try {
-      const data = await this.$axios.$get('/getSeats')
+      const data = await this.$axios.$get(`/getSeats?id=${this.eventId}`)
       this.takenSeats = data.count
       this.error = false
     } catch (err) {
