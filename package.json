@@ -27,7 +27,7 @@
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/tailwindcss": "^4.2.1",
     "@tailwindcss/typography": "^0.4.1",
-    "autoprefixer": "^10.3.3",
+    "autoprefixer": "^10.3.4",
     "babel-eslint": "^10.1.0",
     "contentful-rich-text-vue-renderer": "^2.0.1",
     "eslint": "^7.32.0",
