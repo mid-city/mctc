@@ -1,3 +1,5 @@
 <template>
-  <main>General Contact info here</main>
+  <main>
+    <div class="body-container">General Contact info here</div>
+  </main>
 </template>

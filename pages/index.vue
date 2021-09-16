@@ -1,3 +1,5 @@
 <template>
-  <main class="container">Coming Soon!</main>
+  <main>
+    <div class="body-container">Coming Soon!</div>
+  </main>
 </template>

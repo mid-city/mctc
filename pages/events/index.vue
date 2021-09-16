@@ -1,13 +1,15 @@
 <template>
-  <main class="container">
-    <h1>Upcoming Training Events</h1>
-    <div v-if="!calendarView">
-      <event-schedule-card
-        v-for="event in events"
-        :key="event.sys.id"
-        :event="event"
-        class="my-4"
-      />
+  <main>
+    <div class="body-container">
+      <h1>Upcoming Training Events</h1>
+      <div v-if="!calendarView">
+        <event-schedule-card
+          v-for="event in events"
+          :key="event.sys.id"
+          :event="event"
+          class="my-4"
+        />
+      </div>
     </div>
   </main>
 </template>
@@ -33,7 +35,6 @@ export default {
             }
             startDatetime
             endDatetime
-            registrationOpen
             course {
               title 
               description

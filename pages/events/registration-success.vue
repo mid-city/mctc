@@ -1,7 +1,9 @@
 <template>
-  <main class="container">
-    <h1>Thank you!</h1>
-    <p>Test registration successful.</p>
+  <main>
+    <div class="body-container">
+      <h1>Thank you!</h1>
+      <p>Test registration successful.</p>
+    </div>
   </main>
 </template>
 <script>
