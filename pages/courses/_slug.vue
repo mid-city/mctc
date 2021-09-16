@@ -6,7 +6,16 @@
     >
       <div class="container h-full relative">
         <h1
-          class="text-2xl md:text-3xl lg:text-4xl text-gray-50 uppercase absolute bottom-4 left-4"
+          class="
+            text-2xl
+            md:text-3xl
+            lg:text-4xl
+            text-gray-50
+            uppercase
+            absolute
+            bottom-4
+            left-4
+          "
         >
           {{ course.title }}
         </h1>
@@ -14,7 +23,7 @@
       <!-- <img :src="heroImage" alt="" class="absolute bottom-0 left-0 -z-10" /> -->
     </div>
 
-    <div class="container">
+    <div class="body-container">
       <h2>Course Description</h2>
       <div v-if="course.longDescription" class="prose md:prose-lg max-w-none">
         <rich-text-renderer :document="course.longDescription.json" />
@@ -22,7 +31,8 @@
     </div>
 
     <div class="container">
-      <h2>Instructors</h2>
+      <h2 v-if="!multipleInstructors">Instructor</h2>
+      <h2 v-if="multipleInstructors">Instructors</h2>
       <div class="md:grid grid-cols-2 gap-4 xl:grid-cols-3">
         <instructor-card
           v-for="instructor in course.instructorsCollection.items"
@@ -79,6 +89,10 @@ export default {
       } else {
         return ''
       }
+    },
+    multipleInstructors() {
+      if (this.course.instructorsCollection.items.length > 1) return true
+      else return false
     },
   },
 }

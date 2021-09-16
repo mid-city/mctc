@@ -1,12 +1,14 @@
 <template>
-  <main class="container">
-    <h1>Course Catalog</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <course-card
-        v-for="course in courses"
-        :key="course.sys.id"
-        :course="course"
-      ></course-card>
+  <main>
+    <div class="body-container">
+      <h1>Course Catalog</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <course-card
+          v-for="course in courses"
+          :key="course.sys.id"
+          :course="course"
+        ></course-card>
+      </div>
     </div>
   </main>
 </template>

@@ -1,63 +1,65 @@
 <template>
-  <main class="container lg:grid grid-cols-2 gap-6 pt-8">
-    <div>
-      <h1 class="mt-0">{{ event.course.title }}</h1>
+  <main>
+    <div class="body-container lg:grid grid-cols-2 gap-6 pt-8">
+      <div>
+        <h1 class="mt-0">{{ event.course.title }}</h1>
 
-      <div class="mb-8">
-        <p>{{ event.course.description }}</p>
-        <p class="text-right">
-          <NuxtLink
-            :to="`/courses/${event.course.slug}`"
-            class="text-blue-800 underline"
-          >
-            Full Course Description
-          </NuxtLink>
-        </p>
-        <p>
-          {{ startDate }}
-          <span v-if="multiDay">&ndash; {{ endDate }}</span>
-        </p>
-        <p>
-          {{ startTime }} &ndash; {{ endTime }}
-          {{ event.classroom.timeZone }} Time
-        </p>
-      </div>
-      <div class="mb-8 md:grid grid-cols-2 lg:block">
-        <div>
-          <h2 class="text-brand text-lg mb-2">Location</h2>
+        <div class="mb-8">
+          <p>{{ event.course.description }}</p>
+          <p class="text-right">
+            <NuxtLink
+              :to="`/courses/${event.course.slug}`"
+              class="text-blue-800 underline"
+            >
+              Full Course Description
+            </NuxtLink>
+          </p>
           <p>
-            {{ event.classroom.organization }} &mdash;
-            {{ event.classroom.city }} Classroom <br />
-            {{ event.classroom.address }}<br />{{ event.classroom.city }},
-            {{ event.classroom.state }} {{ event.classroom.zip }}
+            {{ startDate }}
+            <span v-if="multiDay">&ndash; {{ endDate }}</span>
+          </p>
+          <p>
+            {{ startTime }} &ndash; {{ endTime }}
+            {{ event.classroom.timeZone }} Time
           </p>
         </div>
-        <LazyClassroomMap
-          :lat="event.classroom.coordinates.lat"
-          :lon="event.classroom.coordinates.lon"
-          class="my-8 md:my-0 lg:my-8 max-w-2xl h-40 lg:h-80"
+        <div class="mb-8 md:grid grid-cols-2 lg:block">
+          <div>
+            <h2 class="text-brand text-lg mb-2">Location</h2>
+            <p>
+              {{ event.classroom.organization }} &mdash;
+              {{ event.classroom.city }} Classroom <br />
+              {{ event.classroom.address }}<br />{{ event.classroom.city }},
+              {{ event.classroom.state }} {{ event.classroom.zip }}
+            </p>
+          </div>
+          <LazyClassroomMap
+            :lat="event.classroom.coordinates.lat"
+            :lon="event.classroom.coordinates.lon"
+            class="my-8 md:my-0 lg:my-8 max-w-2xl h-40 lg:h-80"
+          />
+        </div>
+      </div>
+      <div class="rounded p-8 bg-gray-200">
+        <h2 class="text-brand text-2xl text-center">{{ formHeading }}</h2>
+        <div
+          v-if="registrationOpen"
+          class="flex flex-wrap justify-between items-center mt-2"
+        >
+          <p>Price: ${{ event.course.price }}</p>
+          <p>{{ statusMessage }}</p>
+        </div>
+        <RegistrationForm
+          v-if="registrationOpen"
+          :event-id="$route.params.id"
+          :price="event.course.price"
+          :dealer-price="event.course.dealerPrice"
+          :start-date="startDateTime.toISOString()"
+          :location="event.classroom.city"
+          :course-title="event.course.title"
+          :max-seats="event.maxAttendees"
         />
       </div>
-    </div>
-    <div class="rounded p-8 bg-gray-100">
-      <h2 class="text-brand text-2xl text-center">{{ formHeading }}</h2>
-      <div
-        v-if="registrationOpen"
-        class="flex flex-wrap justify-between items-center mt-2"
-      >
-        <p>Price: ${{ event.course.price }}</p>
-        <p>{{ statusMessage }}</p>
-      </div>
-      <RegistrationForm
-        v-if="registrationOpen"
-        :event-id="$route.params.id"
-        :price="event.course.price"
-        :dealer-price="event.course.dealerPrice"
-        :start-date="startDateTime.toISOString()"
-        :location="event.classroom.city"
-        :course-title="event.course.title"
-        :max-seats="event.maxAttendees"
-      />
     </div>
   </main>
 </template>
