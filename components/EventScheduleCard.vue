@@ -1,25 +1,40 @@
 <template>
   <nuxt-link
     :to="`/events/${event.sys.id}`"
-    class="flex p-4 bg-blue-200 hover:bg-blue-300 border-2 border-blue-400 rounded text-gray-800 items-center flex-wrap max-w-xl"
+    class="
+      block
+      p-4
+      hover:bg-gray-200
+      focus:bg-gray-200
+      border-2 border-gray-400
+      hover:border-gray-600
+      focus:border-gray-600
+      text-gray-800
+      max-w-xl
+    "
   >
-    <div class="flex-grow">
-      <h2 class="text-2xl">{{ event.course.title }}</h2>
-      <p class="text-sm">
-        {{ event.classroom.organization }} &mdash; {{ event.classroom.city }}
+    <div class="">
+      <h2 class="text-2xl text-gray-600 font-bold mb-2">
+        {{ event.course.title }}
+      </h2>
+      <p class="">
+        <FaIcon
+          :icon="['fas', 'calendar-day']"
+          class="fa-fw mr-2 text-brand"
+        ></FaIcon
+        >{{ displayDate }}
+      </p>
+      <p class="">
+        <FaIcon
+          :icon="['fas', 'map-marker-alt']"
+          class="fa-fw mr-2 text-brand"
+        ></FaIcon
+        >{{ event.classroom.organization }} &mdash; {{ event.classroom.city }}
       </p>
     </div>
-    <p class="text-3xl text-blue-900">
-      {{ startMonth }} {{ startDay
-      }}<span v-if="multiDay">
-        &ndash; <span v-if="multiMonth">{{ endMonth }}</span> {{ endDay }}</span
-      >
-    </p>
   </nuxt-link>
 </template>
 <script>
-// import { gql } from 'nuxt-graphql-request'
-
 export default {
   name: 'EventScheduleCard',
 
@@ -31,41 +46,23 @@ export default {
   },
 
   computed: {
-    startDateTime() {
-      return this.$dayjs(this.event.startDatetime)
+    displayDate() {
+      return this.dateText(this.event.startDatetime, this.event.endDatetime)
     },
-    endDateTime() {
-      return this.$dayjs(this.event.endDatetime)
-    },
-    startDay() {
-      return this.startDateTime.format('D')
-    },
-    endDay() {
-      return this.endDateTime.format('D')
-    },
+  },
+  methods: {
+    dateText(startISOString, endISOString) {
+      const start = this.$dayjs(startISOString)
+      const end = this.$dayjs(endISOString)
 
-    startMonth() {
-      return this.startDateTime.format('MMM')
-    },
-    endMonth() {
-      return this.endDateTime.format('MMM')
-    },
-    multiDay() {
-      if (
-        this.startDateTime.format('MM/DD/YYYY') ===
-        this.endDateTime.format('MM/DD/YYYY')
-      ) {
-        return false
-      } else {
-        return true
-      }
-    },
-    multiMonth() {
-      if (this.startMonth === this.endMonth) {
-        return false
-      } else {
-        return true
-      }
+      const multiDay = !start.isSame(end, 'day')
+      const multiMonth = !start.isSame(end, 'month')
+
+      if (multiMonth)
+        return `${start.format('MMMM D')} \u2013 ${end.format('MMMM D, YYYY')}`
+      else if (multiDay)
+        return `${start.format('MMMM D')} \u2013 ${end.format('D, YYYY')}`
+      else return start.format('MMMM D, YYYY')
     },
   },
 }

@@ -1,13 +1,16 @@
 <template>
   <main>
     <div class="body-container">
-      <h1>Upcoming Training Events</h1>
-      <div v-if="!calendarView">
+      <h1>Class Schedule</h1>
+      <div
+        v-if="flags.agendaView"
+        class="grid gap-4 md:grid-cols-2 xl:grid-cols-3 xl:gap-6"
+      >
         <event-schedule-card
           v-for="event in events"
           :key="event.sys.id"
           :event="event"
-          class="my-4"
+          class="w-full"
         />
       </div>
     </div>
@@ -20,7 +23,10 @@ export default {
   data() {
     return {
       events: [],
-      calendarView: false,
+      flags: {
+        agendaView: true,
+        calendarView: false,
+      },
     }
   },
   async fetch() {
