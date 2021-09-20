@@ -32,7 +32,10 @@ export default {
       center: [this.lon, this.lat],
       zoom: this.mapZoom,
     })
-    const marker = new mapboxgl.Marker().setLngLat([this.lon, this.lat])
+    const marker = new mapboxgl.Marker({ color: '#D42F35' }).setLngLat([
+      this.lon,
+      this.lat,
+    ])
     marker.addTo(this.mapbox)
   },
   methods: {},
