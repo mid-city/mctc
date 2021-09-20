@@ -18,7 +18,7 @@
           />
         </NuxtLink>
       </div>
-      <nav class="flex-grow max-w-xl">
+      <nav class="flex-grow max-w-xl text-gray-700">
         <ul class="flex justify-between items-center text-sm sm:text-lg">
           <li>
             <NuxtLink to="/courses"
