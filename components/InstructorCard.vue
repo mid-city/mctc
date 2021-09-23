@@ -1,8 +1,7 @@
 <template>
   <div class="border-2 p-4">
     <div class="flex flex-row flex-wrap items-center mb-4">
-      <!-- Replace with headshot when available -->
-      <fa-icon :icon="['fas', 'user-circle']" class="fa-6x"></fa-icon>
+      <InstructorPhoto :instructor="instructor" />
       <p class="text-brand font-bold flex-grow text-center">
         {{ instructor.name }}
       </p>
@@ -10,7 +9,17 @@
     <div class="overflow-hidden max-h-40 relative">
       <p>{{ instructor.bio }}</p>
       <div
-        class="absolute bottom-0 left-0 bg-gradient-to-t from-white to-transparent z-10 w-full h-20"
+        class="
+          absolute
+          bottom-0
+          left-0
+          bg-gradient-to-t
+          from-gray-50
+          to-transparent
+          z-10
+          w-full
+          h-20
+        "
       >
         <div class="relative h-full w-full">
           <a
