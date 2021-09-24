@@ -87,7 +87,4 @@ export default {
     },
     baseUrl: process.env.BASE_URL,
   },
-  // serverMiddleware: [
-  //   { path: '/admin', handler: '~/server-middleware/render-mode.js' },
-  // ],
 }
