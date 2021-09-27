@@ -55,7 +55,9 @@
         />
       </div>
     </div>
-    <NuxtLink :to="`/events/${$route.params.id}/info-sheet`" class="hidden"
+    <NuxtLink
+      :to="`/events/${$route.params.id}/info-sheet`"
+      class="fixed -top-80 -left-80"
       >info-sheet</NuxtLink
     >
   </main>
