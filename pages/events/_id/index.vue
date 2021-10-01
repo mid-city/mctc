@@ -14,14 +14,8 @@
               Full Course Description
             </NuxtLink>
           </p>
-          <p>
-            {{ startDate }}
-            <span v-if="multiDay">&ndash; {{ endDate }}</span>
-          </p>
-          <p>
-            {{ startTime }} &ndash; {{ endTime }}
-            {{ event.classroom.timeZone }} Time
-          </p>
+          <p>{{ displayDate }}</p>
+          <p>{{ displayTime }}</p>
         </div>
         <div class="mb-8 md:grid grid-cols-2 lg:block">
           <div>
@@ -61,6 +55,11 @@
         />
       </div>
     </div>
+    <NuxtLink
+      :to="`/events/${$route.params.id}/info-sheet`"
+      class="fixed -top-80 -left-80"
+      >info-sheet</NuxtLink
+    >
   </main>
 </template>
 <script>
@@ -132,6 +131,16 @@ export default {
   },
 
   computed: {
+    displayDate() {
+      return this.dateText(this.event.startDatetime, this.event.endDatetime)
+    },
+    displayTime() {
+      return this.timeText(
+        this.event.startDatetime,
+        this.event.endDatetime,
+        this.event.classroom.timeZone
+      )
+    },
     startDateTime() {
       return this.$dayjs(this.event.startDatetime)
     },
@@ -139,10 +148,10 @@ export default {
       return this.$dayjs(this.event.endDatetime)
     },
     startDate() {
-      return this.startDateTime.format('dddd, MMMM D, YYYY')
+      return this.startDateTime.format('ddd, MMMM D, YYYY')
     },
     endDate() {
-      return this.endDateTime.format('dddd, MMMM D, YYYY')
+      return this.endDateTime.format('ddd, MMMM D, YYYY')
     },
     startTime() {
       if (this.event.classroom.timeZone === 'Central') {
@@ -156,16 +165,6 @@ export default {
         return this.endDateTime.tz('America/Chicago').format('h:mm A')
       } else {
         return this.endDateTime.format('h:mm A')
-      }
-    },
-    multiDay() {
-      if (
-        this.startDateTime.format('MM/DD/YYYY') ===
-        this.endDateTime.format('MM/DD/YYYY')
-      ) {
-        return false
-      } else {
-        return true
       }
     },
     hoursUntilStart() {
@@ -192,6 +191,35 @@ export default {
     formHeading() {
       if (this.registrationOpen) return 'Register'
       else return 'Registration Closed'
+    },
+  },
+  methods: {
+    dateText(startISOString, endISOString) {
+      const start = this.$dayjs(startISOString)
+      const end = this.$dayjs(endISOString)
+
+      const multiDay = !start.isSame(end, 'day')
+
+      if (multiDay)
+        return `${start.format('ddd, MMM. D')} \u2013 ${end.format(
+          'ddd, MMM. D, YYYY'
+        )}`
+      else return start.format('dddd, MMM. D, YYYY')
+    },
+    timeText(startISOString, endISOString, timeZone) {
+      const start =
+        timeZone === 'Central'
+          ? this.$dayjs(startISOString).tz('America/Chicago')
+          : this.$dayjs(startISOString)
+      const end =
+        timeZone === 'Central'
+          ? this.$dayjs(endISOString).tz('America/Chicago')
+          : this.$dayjs(endISOString)
+      const tzString = timeZone === 'Central' ? 'Central Time' : 'Eastern Time'
+
+      return `${start.format('h:mm A')} \u2013 ${end.format(
+        'h:mm A'
+      )} ${tzString}`
     },
   },
 

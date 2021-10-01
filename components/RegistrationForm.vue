@@ -262,6 +262,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.form.reset()
       })
+			this.$fetch()
     },
     onSubmit() {
       this.processing = true
