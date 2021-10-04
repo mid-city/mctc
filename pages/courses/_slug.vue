@@ -8,8 +8,9 @@
         <h1
           class="
             text-2xl
-            md:text-3xl
-            lg:text-4xl
+            sm:text-3xl
+            md:text-4xl
+            lg:text-5xl
             text-gray-50
             uppercase
             absolute
@@ -24,8 +25,8 @@
     </div>
 
     <div class="body-container">
-      <h2>Course Description</h2>
-      <div v-if="course.longDescription" class="prose md:prose-lg max-w-none">
+      <h2 class="text-brand text-2xl my-8">Course Description</h2>
+      <div v-if="course.longDescription" class="prose">
         <rich-text-renderer :document="course.longDescription.json" />
       </div>
     </div>
@@ -97,8 +98,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-h2 {
-  @apply text-brand text-xl my-4 sm:text-2xl;
-}
-</style>
