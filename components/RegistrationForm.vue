@@ -262,13 +262,11 @@ export default {
       this.$nextTick(() => {
         this.$refs.form.reset()
       })
-			this.$fetch()
     },
     onSubmit() {
       this.processing = true
-      // http POST to endpoint url.
-      this.$axios
-        .$post(
+      try {
+        this.$axios.$post(
           '/registrations',
           {
             eventId: this.eventId,
@@ -286,15 +284,15 @@ export default {
             },
           }
         )
-        .then((res) => {
-          this.processing = false
-          this.resetForm()
-        })
-        .catch((err) => {
-          this.processing = false
-          this.submitError = true
-          console.error(err)
-        })
+        this.processing = false
+        this.resetForm()
+      } catch (err) {
+        this.processing = false
+        this.submitError = true
+        console.error(err)
+      }
+
+      this.$emit('submitted')
     },
   },
 }

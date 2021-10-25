@@ -52,6 +52,7 @@
           :location="event.classroom.city"
           :course-title="event.course.title"
           :max-seats="event.maxAttendees"
+          @submitted="updateCounter"
         />
       </div>
     </div>
@@ -206,6 +207,7 @@ export default {
         )}`
       else return start.format('dddd, MMM. D, YYYY')
     },
+
     timeText(startISOString, endISOString, timeZone) {
       const start =
         timeZone === 'Central'
@@ -220,6 +222,10 @@ export default {
       return `${start.format('h:mm A')} \u2013 ${end.format(
         'h:mm A'
       )} ${tzString}`
+    },
+
+    updateCounter() {
+      setTimeout(this.$fetch, 500)
     },
   },
 
