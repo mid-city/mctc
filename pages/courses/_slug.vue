@@ -34,6 +34,16 @@
     <div class="container">
       <h2 v-if="!multipleInstructors">Instructor</h2>
       <h2 v-if="multipleInstructors">Instructors</h2>
+      <div>
+        <p
+          v-for="instructor in course.instructorsCollection.items"
+          :key="instructor.sys.id"
+          class="mb-4 md:col-span-1"
+        >
+          {{ instructor.name }}
+        </p>
+      </div>
+      <!--
       <div class="md:grid grid-cols-2 gap-4 xl:grid-cols-3">
         <instructor-card
           v-for="instructor in course.instructorsCollection.items"
@@ -42,6 +52,7 @@
           class="mb-4 md:col-span-1"
         ></instructor-card>
       </div>
+			-->
     </div>
   </main>
 </template>
@@ -71,7 +82,10 @@ export default {
             longDescription { json }
             heroImage { url }
             instructorsCollection {
-              items { sys { id } }
+              items { 
+								sys { id } 
+								name
+							}
             }
           }
         }
