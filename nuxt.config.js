@@ -24,7 +24,7 @@ export default {
     'nuxt-graphql-request',
   ],
 
-  modules: ['@nuxtjs/dayjs', '@nuxtjs/axios'],
+  modules: ['@nuxtjs/dayjs', '@nuxtjs/axios', '@nuxt/image'],
 
   // Module Configs
   tailwindcss: {
@@ -69,6 +69,13 @@ export default {
           },
         },
       },
+    },
+  },
+
+  image: {
+    provider: 'cloudinary',
+    cloudinary: {
+      baseURL: 'https://res.cloudinary.com/mid-city/image/upload/',
     },
   },
 
