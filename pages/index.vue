@@ -1,5 +1,10 @@
 <template>
   <main>
-    <div class="body-container">Coming Soon!</div>
+    <Hero />
   </main>
 </template>
+<script>
+export default {
+  layout: 'default',
+}
+</script>

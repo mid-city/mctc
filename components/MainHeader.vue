@@ -22,7 +22,7 @@
               >Course Catalog</NuxtLink
             >
           </li>
-          <li>
+          <!--          <li>
             <NuxtLink to="/instructors"
               ><FaIcon
                 :icon="['fas', 'chalkboard-teacher']"
@@ -30,7 +30,7 @@
               ></FaIcon
               >Instructors</NuxtLink
             >
-          </li>
+          </li> -->
           <li>
             <NuxtLink to="/events"
               ><FaIcon
@@ -114,7 +114,7 @@
                 >Course Catalog</NuxtLink
               >
             </li>
-            <li>
+            <!-- <li>
               <NuxtLink to="/instructors"
                 ><FaIcon
                   :icon="['fas', 'chalkboard-teacher']"
@@ -122,7 +122,7 @@
                 ></FaIcon
                 >Instructors</NuxtLink
               >
-            </li>
+            </li> -->
             <li>
               <NuxtLink to="/events"
                 ><FaIcon
@@ -147,11 +147,6 @@
     </div>
   </header>
 </template>
-<style scoped>
-.menu li {
-  @apply p-4 mb-2;
-}
-</style>
 <script>
 export default {
   name: 'MainHeader',
@@ -175,3 +170,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.menu li {
+  @apply p-4 mb-2;
+}
+</style>
