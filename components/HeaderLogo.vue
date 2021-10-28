@@ -1,9 +1,13 @@
 <template>
   <div class="logo">
     <NuxtLink to="/">
-      <img
-        src="https://res.cloudinary.com/mid-city/image/upload/c_scale,e_trim:10,f_auto,q_auto,w_1000/v1616075716/MCTC/MCTC_Logo_Horizontal_cyc2bp"
+      <NuxtImg
+        src="MCTC/MCTC_Logo_Horizontal_cyc2bp"
         alt="Mid-City Tech Center"
+        height="405"
+        width="1725"
+        sizes="xs:50vw sm:30vw md:32vw lg:32vw xl:25vw 2xl:18vw"
+        :modifiers="{ effect: 'trim' }"
       />
     </NuxtLink>
   </div>
