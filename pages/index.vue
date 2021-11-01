@@ -1,10 +1,10 @@
 <template>
-  <main>
+  <div>
     <Hero />
-  </main>
+  </div>
 </template>
 <script>
 export default {
-  layout: 'default',
+  layout: 'home',
 }
 </script>

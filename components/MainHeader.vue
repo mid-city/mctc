@@ -1,17 +1,7 @@
 <template>
   <header>
     <nav
-      class="
-        menu
-        fixed
-        left-0
-        z-30
-        top-0
-        w-5/6
-        max-w-xs
-        bg-gray-50
-        min-h-screen
-      "
+      class="menu fixed left-0 z-30 top-0 w-5/6 max-w-xs min-h-screen"
       :class="menuDisplayClass"
     >
       <div class="pt-4 mt-12 sm:mt-16 md:mt-20">
@@ -50,11 +40,12 @@
       </div>
     </nav>
     <div
+      :class="bgOpacityClass"
       class="
+        bg-gray-50
         flex
         items-center
         text-brand
-        bg-gray-50
         shadow-sm
         z-40
         fixed
@@ -150,6 +141,9 @@
 <script>
 export default {
   name: 'MainHeader',
+  props: {
+    translucent: Boolean,
+  },
   data() {
     return {
       menuVisible: false,
@@ -158,6 +152,9 @@ export default {
   computed: {
     menuDisplayClass() {
       return this.menuVisible ? 'block lg:hidden' : 'hidden'
+    },
+    bgOpacityClass() {
+      return this.translucent ? 'bg-opacity-70' : 'bg-opacity-100'
     },
   },
   methods: {
