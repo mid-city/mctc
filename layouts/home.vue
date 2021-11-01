@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MainHeader :translucent="true" />
+    <MainHeader :translucent="false" />
     <Nuxt class="bg-gray-50" />
     <MainFooter />
   </div>
