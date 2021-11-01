@@ -11,7 +11,9 @@
       autoplay
       loop
       muted
-      preload="auto"
+      playsinline
+      disablepictureinpicture
+      disableremoteplayback
       class="
         object-cover
         min-w-full min-h-full
