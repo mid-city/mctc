@@ -1,11 +1,33 @@
 <template>
-  <div
+  <main
     class="hero relative overflow-hidden bg-hero-poster bg-left-top bg-cover"
   >
-    <div class="hero-content relative z-10 h-full w-full flex items-center">
-      <p class="m-8 text-white text-5xl uppercase font-bold">
-        Level Up Your Career
-      </p>
+    <div
+      class="
+        hero-content
+        relative
+        z-10
+        h-full
+        w-full
+        bg-black bg-opacity-30
+        flex
+        items-center
+      "
+    >
+      <div class="m-8 text-gray-50">
+        <h2 class="my-4 text-5xl uppercase font-bold">
+          Stand Out From The Crowd
+        </h2>
+        <p class="text-lg">Learn Essential Skills from Industry Veterans</p>
+        <div class="flex flex-wrap justify-between w-1/2 mt-4">
+          <NuxtLink to="/courses" class="py-2 text-center rounded bg-brand w-40"
+            >Courses</NuxtLink
+          >
+          <NuxtLink to="/events" class="py-2 text-center rounded bg-brand w-40"
+            >Schedule</NuxtLink
+          >
+        </div>
+      </div>
     </div>
     <ClientOnly>
       <video
@@ -32,7 +54,7 @@
         <source :src="heroVid.webm" type="video/webm" />
       </video>
     </ClientOnly>
-  </div>
+  </main>
 </template>
 <script>
 export default {
@@ -76,7 +98,7 @@ export default {
 </script>
 <style scoped>
 .hero {
-  height: 40vw;
+  height: 60vw;
   min-height: 480px;
   max-height: 70vh;
 }
