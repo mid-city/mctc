@@ -7,32 +7,41 @@
         Level Up Your Career
       </p>
     </div>
-    <video
-      autoplay
-      loop
-      muted
-      playsinline
-      disablepictureinpicture
-      disableremoteplayback
-      class="
-        object-cover
-        min-w-full min-h-full
-        overflow-hidden
-        w-auto
-        h-auto
-        absolute
-        top-0
-        left-0
-      "
-    >
-      <source :src="heroVid.mp4" type="video/mp4" />
-      <source :src="heroVid.webm" type="video/webm" />
-    </video>
+    <ClientOnly>
+      <video
+        v-if="showHeroVid"
+        ref="heroVideo"
+        autoplay
+        loop
+        muted
+        playsinline
+        disablepictureinpicture
+        disableremoteplayback
+        class="
+          object-cover
+          min-w-full min-h-full
+          overflow-hidden
+          w-auto
+          h-auto
+          absolute
+          top-0
+          left-0
+        "
+      >
+        <source :src="heroVid.mp4" type="video/mp4" />
+        <source :src="heroVid.webm" type="video/webm" />
+      </video>
+    </ClientOnly>
   </div>
 </template>
 <script>
 export default {
   name: 'Hero',
+  data() {
+    return {
+      showHeroVid: false,
+    }
+  },
   computed: {
     heroBg() {
       const publicId = 'mctc-hero2_poster_nwptl4'
@@ -55,12 +64,20 @@ export default {
       }
     },
   },
+  mounted() {
+    this.startVideo()
+  },
+  methods: {
+    startVideo() {
+      this.showHeroVid = true
+    },
+  },
 }
 </script>
 <style scoped>
 .hero {
-  height: 56.25vw;
+  height: 40vw;
   min-height: 480px;
-  max-height: 70vw;
+  max-height: 70vh;
 }
 </style>
