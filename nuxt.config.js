@@ -60,7 +60,7 @@ export default {
         'faCalendarDay',
         'faMobileAlt',
       ],
-      brands: [],
+      brands: ['faFacebook', 'faInstagram', 'faYoutube', 'faLinkedin'],
     },
   },
 
