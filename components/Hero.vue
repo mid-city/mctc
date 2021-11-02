@@ -1,5 +1,5 @@
 <template>
-  <main
+  <div
     class="hero relative overflow-hidden bg-hero-poster bg-left-top bg-cover"
   >
     <div
@@ -14,16 +14,18 @@
         items-center
       "
     >
-      <div class="m-8 text-gray-50">
-        <h2 class="my-4 text-5xl uppercase font-bold">
+      <div class="container text-gray-50">
+        <h2 class="text-5xl md:text-7xl uppercase font-bold">
           Stand Out From The Crowd
         </h2>
-        <p class="text-lg">Learn Essential Skills from Industry Veterans</p>
-        <div class="flex flex-wrap justify-between w-1/2 mt-4">
-          <NuxtLink to="/courses" class="py-2 text-center rounded bg-brand w-40"
+        <p class="text-lg md:text-xl my-8">
+          Learn Essential Skills from Industry Veterans
+        </p>
+        <div class="flex flex-wrap justify-between w-full max-w-lg mt-10">
+          <NuxtLink to="/courses" class="btn bg-brand w-full sm:w-60 mb-4"
             >Courses</NuxtLink
           >
-          <NuxtLink to="/events" class="py-2 text-center rounded bg-brand w-40"
+          <NuxtLink to="/events" class="btn bg-brand w-full sm:w-60 mb-4"
             >Schedule</NuxtLink
           >
         </div>
@@ -54,7 +56,7 @@
         <source :src="heroVid.webm" type="video/webm" />
       </video>
     </ClientOnly>
-  </main>
+  </div>
 </template>
 <script>
 export default {
@@ -97,6 +99,9 @@ export default {
 }
 </script>
 <style scoped>
+.btn {
+  @apply rounded p-4 text-center;
+}
 .hero {
   height: 60vw;
   min-height: 480px;
