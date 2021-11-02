@@ -1,7 +1,18 @@
 <template>
   <header>
     <nav
-      class="menu fixed left-0 z-30 top-0 w-5/6 max-w-xs min-h-screen"
+      class="
+        menu
+        shadow-sm
+        bg-gray-50
+        fixed
+        left-0
+        z-30
+        top-0
+        w-5/6
+        max-w-xs
+        min-h-screen
+      "
       :class="menuDisplayClass"
     >
       <div class="pt-4 mt-12 sm:mt-16 md:mt-20">
