@@ -59,6 +59,8 @@ export default {
         'faCalendarAlt',
         'faCalendarDay',
         'faMobileAlt',
+        'faTools',
+        'faSlidersH',
       ],
       brands: ['faFacebook', 'faInstagram', 'faYoutube', 'faLinkedin'],
     },
