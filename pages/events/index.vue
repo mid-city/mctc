@@ -33,7 +33,9 @@ export default {
     const query = gql`
       query eventCollectionQuery {
         eventCollection(where: {
-            startDatetime_gte: "${this.$dayjs().toISOString()}"
+            startDatetime_gte: "${this.$dayjs()
+              .subtract(15, 'days')
+              .toISOString()}"
         }, order: [startDatetime_ASC]) {
           items {
             sys {
