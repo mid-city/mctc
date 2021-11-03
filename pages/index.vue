@@ -2,7 +2,7 @@
   <main>
     <Hero />
     <div class="container my-12">
-      <section class="card-row flex justify-evenly">
+      <section class="card-row flex justify-evenly flex-wrap">
         <div class="card">
           <h3>
             <FaIcon :icon="['fas', 'tools']" class="fa-fw"></FaIcon>
@@ -16,9 +16,13 @@
         <div class="card">
           <h3>
             <FaIcon :icon="['fas', 'sliders-h']" class="fa-fw"></FaIcon>
-            Custom Training
+            Custom Training Programs
           </h3>
-          <p>Lorem ipsum dolor sit amet.</p>
+          <p>
+            Can't make it to one of our classes? Need training for your entire
+            crew? We can come to you with training material customized to your
+            needs.
+          </p>
         </div>
         <div class="card">
           <NuxtImg
@@ -33,18 +37,7 @@
       </section>
       <section>
         <h3 class="text-gray-700 my-4 text-3xl font-bold">Upcoming Classes</h3>
-        <div
-          class="
-            flex
-            items-center
-            justify-center
-            h-56
-            bg-gray-300
-            border-2 border-gray-500
-          "
-        >
-          Events here
-        </div>
+        <div class=""><EventList /></div>
       </section>
 
       <section></section>
@@ -62,6 +55,6 @@ export default {
 }
 
 .card {
-  @apply w-80 text-center;
+  @apply w-full mb-8 text-center max-w-xs md:text-left;
 }
 </style>
