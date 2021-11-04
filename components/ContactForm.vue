@@ -1,22 +1,21 @@
-/* eslint-disable camelcase */ /* eslint-disable camelcase */ /* eslint-disable
-camelcase */
 <template>
   <div>
     <ValidationObserver
-      v-slot="{ invalid, handleSubmit }"
       ref="form"
+      v-slot="{ invalid, handleSubmit }"
       mode="eager"
     >
-      <form id="registrationForm" @submit.prevent="handleSubmit(onSubmit)">
+      <form id="contactForm" @submit.prevent="handleSubmit(onSubmit)">
         <div class="hidden">
           <input
-            v-model="formData.emailAlt"
+            v-model="formData.nameAlt"
             type="text"
-            name="email"
+            name="name"
             autocomplete="off"
             class="absolute -top-80 -left-80"
           />
         </div>
+
         <div class="form-row">
           <div class="form-field">
             <label for="fullName">Full Name</label>
@@ -35,14 +34,15 @@ camelcase */
               >
             </ValidationProvider>
           </div>
+
           <div class="form-field">
-            <label for="email2">Email</label>
+            <label for="email">Email</label>
             <ValidationProvider v-slot="{ errors }">
               <input
-                id="email2"
+                id="email"
                 v-model="formData.email"
                 type="email"
-                name="email2"
+                name="email"
                 autocomplete="email"
                 required
               />
@@ -88,46 +88,37 @@ camelcase */
             </ValidationProvider>
           </div>
         </div>
+
         <div class="form-row">
           <div class="form-field">
-            <label for="billing">Billing Preference</label>
+            <label for="subject">Subject</label>
             <ValidationProvider v-slot="{ errors }" rules="min:6">
               <select
-                id="billing"
-                v-model="formData.billingPreference"
-                name="billingPreference"
+                id="subject"
+                v-model="formData.subject"
+                name="subject"
                 required
               >
                 <option value=""></option>
-                <option value="bill-account">Bill my Account</option>
-                <option value="cash-check">Cash or Check</option>
+                <option value="billing">Billing Question</option>
+                <option value="change-registration">
+                  Change/Cancel a Registration
+                </option>
+                <option value="request-class">Request a Class</option>
+                <option value="other">Other</option>
               </select>
               <span v-if="errors[0]" class="form-error"
-                ><br />Please specify your billing preference.</span
+                ><br />Please choose a subject.</span
               >
-            </ValidationProvider>
-          </div>
-          <div
-            v-if="formData.billingPreference === 'bill-account'"
-            class="form-field"
-          >
-            <label for="cust-po">PO</label>
-            <ValidationProvider>
-              <input
-                id="cust-po"
-                v-model="formData.custPo"
-                type="text"
-                name="custPo"
-              />
             </ValidationProvider>
           </div>
         </div>
         <div class="my-8">
-          <label for="commments">Comments</label>
+          <label for="message">Message</label>
           <textarea
-            id="comments"
-            v-model="formData.comments"
-            name="comments"
+            id="message"
+            v-model="formData.message"
+            name="message"
             cols="30"
             rows="5"
             class="p-4 w-full rounded border border-gray-400 mt-2"
@@ -156,7 +147,7 @@ camelcase */
               w-40
             "
           >
-            <span v-if="!processing">Register</span>
+            <span v-if="!processing">Submit</span>
             <FaIcon
               v-if="processing"
               :icon="['fas', 'spinner']"
@@ -164,13 +155,6 @@ camelcase */
             />
           </button>
         </div>
-        <p class="text-sm text-gray-700 sm:px-8">
-          By registering, you agree to pay ${{ price }}
-          {{ dealerPrice ? `(or $ if you are a DS dealer)` : '' }}
-          via the method you selected. Cash or check payments are due before
-          class begins. Attendees will be required to sign a liability waiver
-          before class begins.
-        </p>
       </form>
     </ValidationObserver>
   </div>
@@ -185,105 +169,39 @@ import {
 } from 'vee-validate/dist/rules'
 
 export default {
-  name: 'RegistrationForm',
-
+  name: 'ContactForm',
   components: {
-    ValidationProvider,
     ValidationObserver,
+    ValidationProvider,
   },
-
-  props: {
-    eventId: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    dealerPrice: {
-      type: Number,
-      default: null,
-    },
-    startDate: {
-      type: String,
-      required: true,
-    },
-    location: {
-      type: String,
-      required: true,
-    },
-    courseTitle: {
-      type: String,
-      required: true,
-    },
-    maxSeats: {
-      type: Number,
-      required: true,
-    },
-  },
-
   data() {
     return {
       formData: {
-        emailAlt: '',
         fullName: '',
         email: '',
         phone: '',
         company: '',
-        billingPreference: '',
-        custPo: '',
-        comments: '',
+        subject: '',
+        nameAlt: '',
       },
       processing: false,
       submitError: false,
     }
   },
-
   created() {
     extend('required', { ...required })
     extend('email', email)
     extend('min', min)
     extend('alpha_spaces', alphaSpaces)
   },
-
   methods: {
-    resetForm() {
-      this.formData = {
-        emailAlt: '',
-        fullName: '',
-        email: '',
-        phone: '',
-        company: '',
-        billingPreference: '',
-        custPo: '',
-        comments: '',
-      }
-      this.$nextTick(() => {
-        this.$refs.form.reset()
-      })
-    },
     onSubmit() {
       this.processing = true
       try {
-        this.$axios.$post(
-          '/registrations',
-          {
-            eventId: this.eventId,
-            location: this.location,
-            courseTitle: this.courseTitle,
-            price: this.price,
-            dealerPrice: this.dealerPrice,
-            registrationTime: this.$dayjs().toISOString(),
-            maxSeats: this.maxSeats,
-            ...this.formData,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
+        this.$axios.$post('/contact', this.formData, {
+          headers: { 'Content-Type': 'application/json' },
+        })
+
         this.processing = false
         this.resetForm()
       } catch (err) {
@@ -293,10 +211,23 @@ export default {
 
       this.$emit('submitted')
     },
+    resetForm() {
+      this.formData = {
+        fullName: '',
+        email: '',
+        phone: '',
+        company: '',
+        subject: '',
+        nameAlt: '',
+      }
+
+      this.$nextTick(() => {
+        this.$refs.form.reset()
+      })
+    },
   },
 }
 </script>
-
 <style scoped>
 .form-row {
   @apply flex flex-wrap justify-between;
