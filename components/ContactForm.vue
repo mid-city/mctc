@@ -92,7 +92,7 @@
         <div class="form-row">
           <div class="form-field">
             <label for="subject">Subject</label>
-            <ValidationProvider v-slot="{ errors }" rules="min:6">
+            <ValidationProvider v-slot="{ errors }" rules="min:5">
               <select
                 id="subject"
                 v-model="formData.subject"
