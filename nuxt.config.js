@@ -101,7 +101,7 @@ export default {
   publicRuntimeConfig: {
     mapboxToken: process.env.MAPBOX_PUBLIC_TOKEN,
     axios: {
-      browserBaseURL: process.env.REGISTRATION_ENDPOINT,
+      browserBaseURL: process.env.APP_ENDPOINT,
     },
     baseUrl: process.env.BASE_URL,
   },
