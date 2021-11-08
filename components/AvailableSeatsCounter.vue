@@ -1,9 +1,11 @@
 <template>
   <div>
-    <span v-if="!error && availableSeats >= 1"
-      >{{ availableSeats }} Seats Open</span
-    >
-    <span v-if="!error && availableSeats < 1">Class Full!</span>
+    <ClientOnly>
+      <span v-if="!error && availableSeats >= 1"
+        >{{ availableSeats }} Seats Open</span
+      >
+      <span v-if="!error && availableSeats < 1">Class Full!</span>
+    </ClientOnly>
   </div>
 </template>
 <script>
