@@ -138,7 +138,7 @@ camelcase */
             <span v-if="invalid">Please complete form before submitting</span>
             <span v-if="submitError" class="text-red-700">
               <FaIcon :icon="['fas', 'exclamation-circle']" />
-              Error Submitting Information
+              {{ displayErrMsg }}
             </span>
           </p>
           <button
@@ -237,9 +237,17 @@ export default {
       },
       processing: false,
       submitError: false,
+      errResMessage: '',
     }
   },
 
+  computed: {
+    displayErrMsg() {
+      return this.errResMessage.length > 0
+        ? this.errResMessage
+        : 'Error Submitting Information'
+    },
+  },
   created() {
     extend('required', { ...required })
     extend('email', email)
@@ -263,10 +271,11 @@ export default {
         this.$refs.form.reset()
       })
     },
+
     onSubmit() {
       this.processing = true
-      try {
-        this.$axios.$post(
+      this.$axios
+        .$post(
           '/registrations',
           {
             eventId: this.eventId,
@@ -284,12 +293,15 @@ export default {
             },
           }
         )
-        this.processing = false
-        this.resetForm()
-      } catch (err) {
-        this.processing = false
-        this.submitError = true
-      }
+        .then((res) => {
+          this.processing = false
+          this.resetForm()
+        })
+        .catch((e) => {
+          if (e.response) this.errResMessage = e.response.data.message
+          this.submitError = true
+          this.processing = false
+        })
 
       this.$emit('submitted')
     },
