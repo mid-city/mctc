@@ -33,6 +33,7 @@ export default {
             title
             slug
             description
+            categories
             heroImage {
               url
             }
