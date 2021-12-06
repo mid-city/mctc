@@ -87,6 +87,7 @@ export default {
             slug
             description
             longDescription { json }
+						categories
             heroImage { url }
 						heroCloudinaryId
             instructorsCollection {
