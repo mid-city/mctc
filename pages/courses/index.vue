@@ -2,7 +2,7 @@
   <main>
     <div class="body-container">
       <h1>Course Catalog</h1>
-      <div class="flex justify-between text-xs mb-4 flex-wrap">
+      <div class="flex justify-start text-xs mb-4 flex-wrap">
         <div class="filter-option">
           <input
             id="filterAll"
@@ -110,7 +110,7 @@ export default {
 </script>
 <style scoped>
 .filter-option {
-  @apply relative px-4 py-2 mb-2;
+  @apply relative px-4 py-2 mb-2 mr-2;
 }
 .filter-option input {
   @apply appearance-none absolute top-0 left-0 w-full h-full border-brand border-2 rounded cursor-pointer;
