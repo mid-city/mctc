@@ -113,7 +113,7 @@ export default {
   @apply relative px-4 py-2 mb-2;
 }
 .filter-option input {
-  @apply appearance-none absolute top-0 left-0 w-full h-full border-brand border-2 rounded;
+  @apply appearance-none absolute top-0 left-0 w-full h-full border-brand border-2 rounded cursor-pointer;
 }
 .filter-option input:checked {
   @apply bg-brand;
@@ -122,6 +122,6 @@ export default {
   @apply text-gray-100;
 }
 .filter-option label {
-  @apply relative z-10 text-gray-900;
+  @apply relative z-10 text-gray-900 cursor-pointer;
 }
 </style>
