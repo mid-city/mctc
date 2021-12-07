@@ -1,5 +1,5 @@
 <template>
-  <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+  <div>
     <event-schedule-card
       v-for="event in events"
       :key="event.sys.id"
@@ -21,6 +21,10 @@ export default {
       type: String,
       default: '',
     },
+    course: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -32,7 +36,8 @@ export default {
       query eventCollectionQuery {
         eventCollection(where: {
             startDatetime_gte: "${this.listStart}",
-						endDatetime_lte: "${this.listEnd}"
+						endDatetime_lte: "${this.listEnd}",
+						course: { sys: { id_contains: "${this.course}" } }
         }, order: [startDatetime_ASC]) {
           items {
             sys {

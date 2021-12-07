@@ -33,33 +33,41 @@
         fit="cover"
       />
     </div>
-    <div class="body-container">
-      <h2 class="text-brand text-2xl my-8">Course Description</h2>
-      <div v-if="course.longDescription" class="prose">
-        <rich-text-renderer :document="course.longDescription.json" />
+    <div class="body-container grid grid-cols-1 lg:grid-cols-12">
+      <div class="lg:col-span-8">
+        <h2 class="text-brand text-2xl my-8">Course Description</h2>
+        <div v-if="course.longDescription" class="prose">
+          <rich-text-renderer :document="course.longDescription.json" />
+        </div>
+        <div>
+          <h2>{{ instructorsTitle }}</h2>
+          <div>
+            <p
+              v-for="instructor in course.instructorsCollection.items"
+              :key="instructor.sys.id"
+              class="mb-4 md:col-span-1"
+            >
+              {{ instructor.name }}
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="container">
-      <h2 v-if="!multipleInstructors">Instructor</h2>
-      <h2 v-if="multipleInstructors">Instructors</h2>
-      <div>
-        <p
-          v-for="instructor in course.instructorsCollection.items"
-          :key="instructor.sys.id"
-          class="mb-4 md:col-span-1"
-        >
-          {{ instructor.name }}
-        </p>
+      <div class="lg:col-span-4 bg-gray-200 px-4 py-8 mt-8">
+        <h3 class="text-gray-800 mb-8 text-xl">Upcoming Classes</h3>
+        <EventList
+          :start="eventListStart"
+          :end="eventListEnd"
+          :course="course.sys.id"
+          class="
+            event-list
+            grid
+            gap-4
+            grid-cols-1
+            md:grid-cols-2
+            lg:grid-cols-1
+          "
+        />
       </div>
-      <!-- <div class="md:grid grid-cols-2 gap-4 xl:grid-cols-3">
-        <instructor-card
-          v-for="instructor in course.instructorsCollection.items"
-          :id="instructor.sys.id"
-          :key="instructor.sys.id"
-          class="mb-4 md:col-span-1"
-        ></instructor-card>
-      </div> -->
     </div>
   </main>
 </template>
@@ -72,17 +80,14 @@ export default {
     RichTextRenderer,
   },
 
-  data() {
-    return {
-      course: {},
-    }
-  },
-
-  async fetch() {
+  async asyncData({ route, $graphql }) {
     const query = gql`
       query courseQuery {
-        courseCollection(where: { slug: "${this.$route.params.slug}" }) {
+        courseCollection(where: { slug: "${route.params.slug}" }) {
           items {
+						sys {
+							id
+						}
             title
             slug
             description
@@ -101,9 +106,15 @@ export default {
       }
     `
 
-    this.course = await this.$graphql.default
+    const course = await $graphql.default
       .request(query)
       .then((res) => res.courseCollection.items[0])
+
+    return { course }
+  },
+
+  data() {
+    return {}
   },
 
   computed: {
@@ -117,6 +128,18 @@ export default {
     multipleInstructors() {
       if (this.course.instructorsCollection.items.length > 1) return true
       else return false
+    },
+
+    instructorsTitle() {
+      return this.multipleInstructors ? 'Instructors' : 'Instructor'
+    },
+
+    eventListStart() {
+      return this.$dayjs().toISOString()
+    },
+
+    eventListEnd() {
+      return this.$dayjs().add(3, 'months').toISOString()
     },
   },
 }

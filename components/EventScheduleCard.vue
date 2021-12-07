@@ -11,6 +11,7 @@
       focus:border-gray-600
       text-gray-800
       max-w-xl
+      bg-gray-50
     "
   >
     <div class="">

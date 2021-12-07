@@ -37,7 +37,11 @@
       </section>
       <section>
         <h3 class="text-gray-700 my-4 text-3xl font-bold">Upcoming Classes</h3>
-        <div class=""><EventList /></div>
+        <div class="">
+          <EventList
+            class="grid gap-4 md:grid-cols-2 xl:grid-cols-3 xl:gap-6"
+          />
+        </div>
       </section>
 
       <section></section>
