@@ -2,7 +2,7 @@ export default {
   target: 'static',
 
   head: {
-    titleTemplate: '%s - mctc',
+    titleTemplate: '%s - Mid-City Tech Center',
     title: 'mctc',
     htmlAttrs: {
       lang: 'en',
@@ -24,13 +24,7 @@ export default {
     'nuxt-graphql-request',
   ],
 
-  modules: [
-    '@nuxtjs/dayjs',
-    '@nuxtjs/axios',
-		'@nuxt/http',
-    '@nuxt/image',
-    '@nuxtjs/cloudinary',
-  ],
+  modules: ['@nuxtjs/dayjs', '@nuxt/http', '@nuxt/image', '@nuxtjs/cloudinary'],
 
   // Module Configs
   tailwindcss: {
@@ -101,7 +95,7 @@ export default {
 
   publicRuntimeConfig: {
     mapboxToken: process.env.MAPBOX_PUBLIC_TOKEN,
-    axios: {
+    http: {
       browserBaseURL: process.env.APP_ENDPOINT,
     },
     baseUrl: process.env.BASE_URL,

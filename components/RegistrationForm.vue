@@ -274,7 +274,7 @@ export default {
 
     onSubmit() {
       this.processing = true
-      this.$axios
+      this.$http
         .$post(
           '/registrations',
           {

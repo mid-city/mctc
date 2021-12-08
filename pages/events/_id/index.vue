@@ -127,7 +127,7 @@ export default {
   },
 
   async fetch() {
-    const data = await this.$axios.$get(`/getSeats?id=${this.$route.params.id}`)
+    const data = await this.$http.$get(`/getSeats?id=${this.$route.params.id}`)
     this.takenSeats = data.count
   },
 
