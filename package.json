@@ -38,7 +38,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.20.0",
     "graphql": "^16.1.0",
-    "nuxt-graphql-request": "^4.1.0",
+    "nuxt-graphql-request": "^4.3.0",
     "postcss": "^8.3.7",
     "prettier": "^2.4.1",
     "tailwindcss": "^2.2.19"
