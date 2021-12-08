@@ -27,6 +27,7 @@ export default {
   modules: [
     '@nuxtjs/dayjs',
     '@nuxtjs/axios',
+		'@nuxt/http',
     '@nuxt/image',
     '@nuxtjs/cloudinary',
   ],
