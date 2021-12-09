@@ -15,17 +15,23 @@
       "
     >
       <div class="container text-gray-50">
-        <h2 class="text-5xl md:text-7xl uppercase font-bold">
+        <h2
+          class="text-5xl md:text-7xl uppercase font-bold filter drop-shadow-sm"
+        >
           Stand Out From The Crowd
         </h2>
-        <p class="text-lg md:text-xl my-8">
+        <p class="text-lg md:text-xl my-8 filter drop-shadow-sm">
           Learn Essential Skills from Industry Veterans
         </p>
         <div class="flex flex-wrap justify-between w-full max-w-lg mt-10">
-          <NuxtLink to="/courses" class="btn bg-brand w-full sm:w-60 mb-4"
+          <NuxtLink
+            to="/courses"
+            class="btn bg-brand w-full sm:w-60 mb-4 shadow-sm"
             >Courses</NuxtLink
           >
-          <NuxtLink to="/events" class="btn bg-brand w-full sm:w-60 mb-4"
+          <NuxtLink
+            to="/events"
+            class="btn bg-brand w-full sm:w-60 mb-4 shadow-sm"
             >Schedule</NuxtLink
           >
         </div>
