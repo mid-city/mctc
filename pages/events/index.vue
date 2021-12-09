@@ -12,6 +12,9 @@
 </template>
 <script>
 export default {
+  head: {
+    title: 'Class Schedule',
+  },
   computed: {
     start() {
       return this.$dayjs().subtract(1, 'month').toISOString()

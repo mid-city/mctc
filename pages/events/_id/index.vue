@@ -131,7 +131,33 @@ export default {
     this.takenSeats = data.count
   },
 
+  head() {
+    return {
+      title: this.pageTitle,
+    }
+  },
+
   computed: {
+    pageTitle() {
+      const date = (() => {
+        const start = this.startDateTime
+        const end = this.endDateTime
+        const multiDay = !start.isSame(end, 'day')
+        const multiMonth = !start.isSame(end, 'month')
+
+        if (multiMonth)
+          return `${start.format('MMMM D')} \u2013 ${end.format(
+            'MMMM D, YYYY'
+          )}`
+        else if (multiDay)
+          return `${start.format('MMMM D')} \u2013 ${end.format('D, YYYY')}`
+        else return start.format('MMMM D, YYYY')
+      })()
+
+      const location = `${this.event.classroom.city}, ${this.event.classroom.state}`
+
+      return `${this.event.course.title} - ${date} - ${location}`
+    },
     displayDate() {
       return this.dateText(this.event.startDatetime, this.event.endDatetime)
     },
@@ -194,6 +220,7 @@ export default {
       else return 'Registration Closed'
     },
   },
+
   methods: {
     dateText(startISOString, endISOString) {
       const start = this.$dayjs(startISOString)
