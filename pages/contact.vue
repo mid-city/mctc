@@ -30,6 +30,10 @@ export default {
     `
     return (await $graphql.default.request(query)).page
   },
+
+  head: {
+    title: 'Contact Info',
+  },
 }
 </script>
 <style scoped>

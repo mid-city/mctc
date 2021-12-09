@@ -83,6 +83,10 @@ export default {
     this.computeFilter()
   },
 
+  head: {
+    title: 'Course Catalog',
+  },
+
   computed: {
     uniqueCategories() {
       const allCategories = this.courses.flatMap((course) => course.categories)

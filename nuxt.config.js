@@ -2,8 +2,10 @@ export default {
   target: 'static',
 
   head: {
-    titleTemplate: '%s - Mid-City Tech Center',
-    title: 'mctc',
+    titleTemplate: (titleChunk) =>
+      titleChunk
+        ? `${titleChunk} - Mid-City Tech Center`
+        : 'Mid-City Tech Center - Learn From the Best',
     htmlAttrs: {
       lang: 'en',
     },
@@ -12,7 +14,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon_32.png' }],
   },
 
   components: true,

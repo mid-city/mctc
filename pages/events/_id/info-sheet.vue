@@ -77,6 +77,7 @@
 import { gql } from 'nuxt-graphql-request'
 export default {
   layout: 'class-details',
+
   async asyncData({ route, $graphql }) {
     const query = gql`
 			query eventEntryQuery {
@@ -118,6 +119,11 @@ export default {
     const event = (await $graphql.default.request(query)).event
     return { event }
   },
+
+  head() {
+    return { title: 'Info Sheet' }
+  },
+
   computed: {
     displayDate() {
       return this.dateText(this.event.startDatetime, this.event.endDatetime)
@@ -130,6 +136,7 @@ export default {
       )
     },
   },
+
   methods: {
     dateText(startISOString, endISOString) {
       const start = this.$dayjs(startISOString)

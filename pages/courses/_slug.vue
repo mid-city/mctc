@@ -113,8 +113,10 @@ export default {
     return { course }
   },
 
-  data() {
-    return {}
+  head() {
+    return {
+      title: this.course.title,
+    }
   },
 
   computed: {
