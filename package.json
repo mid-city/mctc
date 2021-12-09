@@ -20,27 +20,22 @@
     "vee-validate": "^3.4.13"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.16.3",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@nuxt/image": "^0.6.0",
-    "@nuxtjs/eslint-config": "^8.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/tailwindcss": "^4.2.1",
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.3.5",
-    "babel-eslint": "^10.1.0",
     "contentful-rich-text-vue-renderer": "^2.0.1",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-nuxt": "^3.1.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^7.20.0",
     "graphql": "^15.8.0",
     "nuxt-graphql-request": "^4.3.0",
     "postcss": "^8.3.7",
-    "prettier": "^2.4.1",
+    "prettier": "^2.5.1",
     "tailwindcss": "^2.2.19"
   }
 }
