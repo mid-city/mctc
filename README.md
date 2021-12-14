@@ -1,4 +1,4 @@
-# mctc
+# Mid-City training site (MCTC)
 
 ## Build Setup
 
