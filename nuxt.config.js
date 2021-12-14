@@ -28,6 +28,8 @@ export default {
 
   modules: ['@nuxtjs/dayjs', '@nuxt/http', '@nuxt/image', '@nuxtjs/cloudinary'],
 
+  plugins: [{ src: '~/plugins/vue-gtag.js', mode: 'client' }],
+
   // Module Configs
   tailwindcss: {
     jit: false,
