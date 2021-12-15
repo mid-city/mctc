@@ -1,8 +1,8 @@
 <template>
-  <nuxt-link
+  <NuxtLink
     :to="`/courses/${course.slug}`"
-    class="block relative p-8 text-gray-200 bg-gray-100 bg-center bg-cover"
-    :style="`background-image: linear-gradient(to right,rgba(17, 24, 39, 0.85) 20%,rgba(17, 24, 39, .5)), url('${heroImage}');`"
+    class="bg-top bg-cover block relative overflow-hidden text-gray-200 p-8"
+    :style="bgStyle"
   >
     <h1 class="text-brand text-2xl uppercase">{{ course.title }}</h1>
 
@@ -16,12 +16,12 @@
           {{ instructor.name }}
         </p>
       </div>
+      <FaIcon
+        :icon="['fas', 'eye']"
+        class="eyeIcon fa-lg absolute top-4 right-4 text-gray-50"
+      ></FaIcon>
     </div>
-    <FaIcon
-      :icon="['fas', 'eye']"
-      class="eyeIcon fa-lg absolute top-4 right-4 text-gray-50"
-    ></FaIcon>
-  </nuxt-link>
+  </NuxtLink>
 </template>
 <script>
 export default {
@@ -36,12 +36,12 @@ export default {
     instructors() {
       return this.course.instructorsCollection.items
     },
-    heroImage() {
-      if (this.course.heroImage) {
-        return this.course.heroImage.url
-      } else {
-        return ''
-      }
+    bgStyle() {
+      const imgUrl = this.$img(this.course.heroCloudinaryId)
+      const gradient =
+        'linear-gradient(to right,rgba(17,24,39,0.85) 20%,rgba(17,24,39,0.3))'
+
+      return `background-image:${gradient},url(${imgUrl});`
     },
   },
 }
