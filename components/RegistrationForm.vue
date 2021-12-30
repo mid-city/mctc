@@ -144,17 +144,7 @@ camelcase */
           <button
             type="submit"
             :disabled="invalid"
-            class="
-              bg-brand
-              text-gray-50
-              rounded-full
-              px-4
-              py-2
-              text-center
-              hover:bg-red-500
-              focus:bg-red-500
-              w-40
-            "
+            class="bg-brand text-gray-50 rounded-full px-4 py-2 text-center hover:bg-red-500 focus:bg-red-500 w-40"
           >
             <span v-if="!processing">Register</span>
             <FaIcon
@@ -166,7 +156,7 @@ camelcase */
         </div>
         <p class="text-sm text-gray-700 sm:px-8">
           By registering, you agree to pay ${{ price }}
-          {{ dealerPrice ? `(or $ if you are a DS dealer)` : '' }}
+          {{ dealerPriceText }}
           via the method you selected. Cash or check payments are due before
           class begins. Attendees will be required to sign a liability waiver
           before class begins.
@@ -246,6 +236,11 @@ export default {
       return this.errResMessage.length > 0
         ? this.errResMessage
         : 'Error Submitting Information'
+    },
+    dealerPriceText() {
+      return this.dealerPrice
+        ? ` (or $${this.dealerPrice} if you are a DS Dealer)`
+        : ''
     },
   },
   created() {
