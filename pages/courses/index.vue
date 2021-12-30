@@ -63,6 +63,7 @@ export default {
             slug
             description
             categories
+            heroCloudinaryId
             heroImage {
               url
             }
