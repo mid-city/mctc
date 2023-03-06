@@ -21,7 +21,7 @@ export default {
 
   buildModules: [
     '@nuxtjs/eslint-module',
-    '@nuxtjs/tailwindcss',
+    // '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
     'nuxt-graphql-request',
   ],
@@ -30,10 +30,9 @@ export default {
 
   plugins: [{ src: '~/plugins/vue-gtag.js', mode: 'client' }],
 
+  css: ['@/assets/css/main.css'],
+
   // Module Configs
-  tailwindcss: {
-    jit: false,
-  },
 
   dayjs: {
     locales: ['en'],
@@ -91,6 +90,14 @@ export default {
 
   build: {
     transpile: ['vee-validate/dist/rules'],
+    postcss: {
+      postcssOptions: {
+        plugins: {
+          tailwindcss: {},
+          autoprefixer: {},
+        },
+      },
+    },
   },
 
   publicRuntimeConfig: {
