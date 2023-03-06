@@ -93,10 +93,6 @@ export default {
     transpile: ['vee-validate/dist/rules'],
   },
 
-  server: {
-    host: '10.34.1.49',
-  },
-
   publicRuntimeConfig: {
     mapboxToken: process.env.MAPBOX_PUBLIC_TOKEN,
     http: {
