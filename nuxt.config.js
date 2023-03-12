@@ -19,14 +19,9 @@ export default {
 
   components: true,
 
-  buildModules: [
-    '@nuxtjs/eslint-module',
-    // '@nuxtjs/tailwindcss',
-    '@nuxtjs/fontawesome',
-    'nuxt-graphql-request',
-  ],
+  buildModules: ['@nuxtjs/fontawesome', 'nuxt-graphql-request', '@nuxt/image'],
 
-  modules: ['@nuxtjs/dayjs', '@nuxt/http', '@nuxt/image', '@nuxtjs/cloudinary'],
+  modules: ['@nuxtjs/dayjs', '@nuxt/http', '@nuxtjs/cloudinary'],
 
   plugins: [{ src: '~/plugins/vue-gtag.js', mode: 'client' }],
 
@@ -79,8 +74,13 @@ export default {
 
   image: {
     provider: 'cloudinary',
+
     cloudinary: {
       baseURL: 'https://res.cloudinary.com/mid-city/image/upload/',
+    },
+
+    contentful: {
+      baseURL: 'https://images.ctfassets.net',
     },
   },
 

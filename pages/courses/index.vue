@@ -66,6 +66,8 @@ export default {
             heroCloudinaryId
             heroImage {
               url
+              width
+              height
             }
             instructorsCollection {
               items {
