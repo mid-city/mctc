@@ -6,31 +6,21 @@
       >
         <div class="title container h-full relative">
           <h1
-            class="
-              text-2xl
-              sm:text-3xl
-              md:text-4xl
-              lg:text-5xl
-              text-gray-50
-              uppercase
-              absolute
-              bottom-2
-              sm:bottom-4
-              left-4
-            "
+            class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-50 uppercase absolute bottom-2 sm:bottom-4 left-4"
           >
             {{ course.title }}
           </h1>
         </div>
       </div>
       <NuxtImg
-        :src="course.heroCloudinaryId"
-        alt="hero image"
-        class="absolute top-0 left-0"
-        height="1000"
-        width="3000"
+        provider="contentful"
+        :src="course.heroImage.url"
+        :height="course.heroImage.height"
+        :width="course.heroImage.width"
         sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
         fit="cover"
+        class="absolute top-0 left-0"
+        alt="hero image"
       />
     </div>
     <div class="body-container grid grid-cols-1 lg:grid-cols-12">
@@ -58,14 +48,7 @@
           :start="eventListStart"
           :end="eventListEnd"
           :course="course.sys.id"
-          class="
-            event-list
-            grid
-            gap-4
-            grid-cols-1
-            md:grid-cols-2
-            lg:grid-cols-1
-          "
+          class="event-list grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-1"
         />
       </div>
     </div>
@@ -93,7 +76,7 @@ export default {
             description
             longDescription { json }
 						categories
-            heroImage { url }
+            heroImage { url , height, width }
 						heroCloudinaryId
             instructorsCollection {
               items { 
